@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://www.autoremarketers.com/dataadapter" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" targetNamespace="http://www.autoremarketers.com/dataadapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.autoremarketers.com/dataadapter">
+      <s:import namespace="http://www.w3.org/2001/XMLSchema" />
+      <s:element name="ListBidsAndOffers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dealerNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inventoryStatus" type="tns:InventoryStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="InventoryStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="AllVehicles" />
+          <s:enumeration value="AllItems" />
+          <s:enumeration value="ReadyForRelease" />
+          <s:enumeration value="InAuction" />
+          <s:enumeration value="NoSale" />
+          <s:enumeration value="Sold" />
+          <s:enumeration value="Cancelled" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ListBidsAndOffersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListBidsAndOffersResult" type="tns:ListInventoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListInventoryResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListEventMessages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateTo" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="mode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListEventMessagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListEventMessagesResult" type="tns:ListEventMessagesResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListEventMessagesResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListEventLogins">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateTo" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="mode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListEventLoginsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListEventLoginsResult" type="tns:ListEventLoginsResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListEventLoginsResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListInventory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dealerNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inventoryStatus" type="tns:InventoryStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListInventoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListInventoryResult" type="tns:ListInventoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListFeaturedInventory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dealerNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inventoryStatus" type="tns:InventoryStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListFeaturedInventoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListFeaturedInventoryResult" type="tns:ListInventoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListItemsWithoutImages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="inventoryStatus" type="tns:InventoryStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListItemsWithoutImagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListItemsWithoutImagesResult" type="tns:ListImageResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListImageResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dealerNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inventoryStatus" type="tns:InventoryStatus" />
+            <s:element minOccurs="0" maxOccurs="1" name="stockNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListImageResult" type="tns:ListImageResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sellerDealerNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="buyerDealerNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="transactionStatus" type="tns:TransactionStatus" />
+            <s:element minOccurs="0" maxOccurs="1" name="dateFrom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dateTo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TransactionStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="AllTransactions" />
+          <s:enumeration value="New" />
+          <s:enumeration value="InProgress" />
+          <s:enumeration value="Cancelled" />
+          <s:enumeration value="Complete" />
+          <s:enumeration value="IfSale" />
+          <s:enumeration value="InArbitration" />
+          <s:enumeration value="UnwindSale" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ListTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListTransactionResult" type="tns:ListTransactionResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListTransactionResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListEvent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventStatus" type="tns:EventStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="EventStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="AllEvents" />
+          <s:enumeration value="Upcoming" />
+          <s:enumeration value="InProgress" />
+          <s:enumeration value="Ended" />
+          <s:enumeration value="Cancelled" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ListEventResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListEventResult" type="tns:ListEventResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListEventResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DecodeId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="database" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="mode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecodeIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DecodeIdResult" type="tns:DecodeIdResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DecodeIdResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListMarketplace">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="mode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListMarketplaceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListMarketplaceResult" type="tns:ListMarketplaceResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListMarketplaceResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListEventSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListEventSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListEventSummaryResult" type="tns:ListEventSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListEventSummaryResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ImportInventory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="preservePriceInformation" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="inventoryDataSet">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportInventoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportInventoryResult" type="tns:ImportInventoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ImportInventoryResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImportErrorInformation" type="tns:ArrayOfImportError" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfImportError">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ImportError" nillable="true" type="tns:ImportError" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ImportError">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateShippingStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="transactionId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="shippingStatus" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateShippingStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateShippingStatusResult" type="tns:UpdateShippingStatusResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UpdateShippingStatusResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateInventory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="listingId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dealerNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="stockNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="propertyName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="propertyValue" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="mode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateInventoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateInventoryResult" type="tns:UpdateInventoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UpdateInventoryResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ImportEvent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="eventDataSet">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportEventResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportEventResult" type="tns:ImportEventResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ImportEventResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImportErrorInformation" type="tns:ArrayOfImportError" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventDataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ImportOffer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="securityToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="offerDataSet">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportOfferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportOfferResult" type="tns:ImportOfferResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ImportOfferResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImportErrorInformation" type="tns:ArrayOfImportError" />
+          <s:element minOccurs="0" maxOccurs="1" name="OfferDataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ListBidsAndOffersSoapIn">
+    <wsdl:part name="parameters" element="tns:ListBidsAndOffers" />
+  </wsdl:message>
+  <wsdl:message name="ListBidsAndOffersSoapOut">
+    <wsdl:part name="parameters" element="tns:ListBidsAndOffersResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListEventMessagesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListEventMessages" />
+  </wsdl:message>
+  <wsdl:message name="ListEventMessagesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListEventMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListEventLoginsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListEventLogins" />
+  </wsdl:message>
+  <wsdl:message name="ListEventLoginsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListEventLoginsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListInventorySoapIn">
+    <wsdl:part name="parameters" element="tns:ListInventory" />
+  </wsdl:message>
+  <wsdl:message name="ListInventorySoapOut">
+    <wsdl:part name="parameters" element="tns:ListInventoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListFeaturedInventorySoapIn">
+    <wsdl:part name="parameters" element="tns:ListFeaturedInventory" />
+  </wsdl:message>
+  <wsdl:message name="ListFeaturedInventorySoapOut">
+    <wsdl:part name="parameters" element="tns:ListFeaturedInventoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListItemsWithoutImagesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListItemsWithoutImages" />
+  </wsdl:message>
+  <wsdl:message name="ListItemsWithoutImagesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListItemsWithoutImagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListImageSoapIn">
+    <wsdl:part name="parameters" element="tns:ListImage" />
+  </wsdl:message>
+  <wsdl:message name="ListImageSoapOut">
+    <wsdl:part name="parameters" element="tns:ListImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:ListTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ListTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:ListTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListEventSoapIn">
+    <wsdl:part name="parameters" element="tns:ListEvent" />
+  </wsdl:message>
+  <wsdl:message name="ListEventSoapOut">
+    <wsdl:part name="parameters" element="tns:ListEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="DecodeIdSoapIn">
+    <wsdl:part name="parameters" element="tns:DecodeId" />
+  </wsdl:message>
+  <wsdl:message name="DecodeIdSoapOut">
+    <wsdl:part name="parameters" element="tns:DecodeIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListMarketplaceSoapIn">
+    <wsdl:part name="parameters" element="tns:ListMarketplace" />
+  </wsdl:message>
+  <wsdl:message name="ListMarketplaceSoapOut">
+    <wsdl:part name="parameters" element="tns:ListMarketplaceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListEventSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:ListEventSummary" />
+  </wsdl:message>
+  <wsdl:message name="ListEventSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:ListEventSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportInventorySoapIn">
+    <wsdl:part name="parameters" element="tns:ImportInventory" />
+  </wsdl:message>
+  <wsdl:message name="ImportInventorySoapOut">
+    <wsdl:part name="parameters" element="tns:ImportInventoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateShippingStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateShippingStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateShippingStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateShippingStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInventorySoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateInventory" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInventorySoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateInventoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportEventSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportEvent" />
+  </wsdl:message>
+  <wsdl:message name="ImportEventSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportOfferSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportOffer" />
+  </wsdl:message>
+  <wsdl:message name="ImportOfferSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportOfferResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DataAdapterSoap">
+    <wsdl:operation name="ListBidsAndOffers">
+      <wsdl:input message="tns:ListBidsAndOffersSoapIn" />
+      <wsdl:output message="tns:ListBidsAndOffersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListEventMessages">
+      <wsdl:input message="tns:ListEventMessagesSoapIn" />
+      <wsdl:output message="tns:ListEventMessagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListEventLogins">
+      <wsdl:input message="tns:ListEventLoginsSoapIn" />
+      <wsdl:output message="tns:ListEventLoginsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListInventory">
+      <wsdl:input message="tns:ListInventorySoapIn" />
+      <wsdl:output message="tns:ListInventorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListFeaturedInventory">
+      <wsdl:input message="tns:ListFeaturedInventorySoapIn" />
+      <wsdl:output message="tns:ListFeaturedInventorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListItemsWithoutImages">
+      <wsdl:input message="tns:ListItemsWithoutImagesSoapIn" />
+      <wsdl:output message="tns:ListItemsWithoutImagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListImage">
+      <wsdl:input message="tns:ListImageSoapIn" />
+      <wsdl:output message="tns:ListImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListTransaction">
+      <wsdl:input message="tns:ListTransactionSoapIn" />
+      <wsdl:output message="tns:ListTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListEvent">
+      <wsdl:input message="tns:ListEventSoapIn" />
+      <wsdl:output message="tns:ListEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecodeId">
+      <wsdl:input message="tns:DecodeIdSoapIn" />
+      <wsdl:output message="tns:DecodeIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListMarketplace">
+      <wsdl:input message="tns:ListMarketplaceSoapIn" />
+      <wsdl:output message="tns:ListMarketplaceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListEventSummary">
+      <wsdl:input message="tns:ListEventSummarySoapIn" />
+      <wsdl:output message="tns:ListEventSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportInventory">
+      <wsdl:input message="tns:ImportInventorySoapIn" />
+      <wsdl:output message="tns:ImportInventorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateShippingStatus">
+      <wsdl:input message="tns:UpdateShippingStatusSoapIn" />
+      <wsdl:output message="tns:UpdateShippingStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInventory">
+      <wsdl:input message="tns:UpdateInventorySoapIn" />
+      <wsdl:output message="tns:UpdateInventorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportEvent">
+      <wsdl:input message="tns:ImportEventSoapIn" />
+      <wsdl:output message="tns:ImportEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportOffer">
+      <wsdl:input message="tns:ImportOfferSoapIn" />
+      <wsdl:output message="tns:ImportOfferSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DataAdapterSoap" type="tns:DataAdapterSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListBidsAndOffers">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListBidsAndOffers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListEventMessages">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListEventMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListEventLogins">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListEventLogins" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListInventory">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListInventory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListFeaturedInventory">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListFeaturedInventory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListItemsWithoutImages">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListItemsWithoutImages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListImage">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListTransaction">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListEvent">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecodeId">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/DecodeId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListMarketplace">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListMarketplace" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListEventSummary">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ListEventSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportInventory">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ImportInventory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateShippingStatus">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/UpdateShippingStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInventory">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/UpdateInventory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportEvent">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ImportEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportOffer">
+      <soap:operation soapAction="http://www.autoremarketers.com/dataadapter/ImportOffer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DataAdapter">
+    <documentation xmlns="http://schemas.xmlsoap.org/wsdl/" />
+    <wsdl:port name="DataAdapterSoap" binding="tns:DataAdapterSoap">
+      <soap:address location="http://abssandbox.autoremarketers.com/webapp/webservices/dataadapter.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
