@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Permissions;
+using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BookSheetMigration;
 
 namespace BookSheetMigration.Test
 {
@@ -16,6 +14,12 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClientFactory awgServiceClientFactory = new AWGServiceClientFactory();
             awgServiceClient = awgServiceClientFactory.createClient();
+
+            var securityToken = "BA7D2AD1-2963-468E-955E-57B24DAD4C05C5DED32F-A815-4D90-A86B-6F957D793537";
+            var userName = "Authentication";
+            var password = "BF1E2D88-003B-429C-B1EE-1A02941E6F92";
+            AWGServiceCredential awgServiceCredential = new AWGServiceCredential(securityToken, userName, password);
+            awgServiceClient.applyCredentials(awgServiceCredential);
         }
 
         [TestMethod]
@@ -28,29 +32,16 @@ namespace BookSheetMigration.Test
         }
 
         [TestMethod]
-        public void testAuthenticationOfawgServiceClient()
-        {
-            awgServiceClient.authenticate();
-            Assert.IsTrue(awgServiceClient.isAuthenticated());
-        }
-
-        [TestMethod]
         public void testApplyingCredentialsToAServiceClient()
         {
-            var securityToken = "sometoken";
-            var userName = "someusername";
-            var password = "somepassword";
-            AWGServiceCredential awgServiceCredential = new AWGServiceCredential(securityToken, userName, password);
-            awgServiceClient.applyCredentials(awgServiceCredential);
             Assert.IsTrue(awgServiceClient.areCredentialsApplied());
         }
 
         [TestMethod]
         public void testListingOfEventsThroughAWGClient()
         {
-            awgServiceClient.authenticate();
-            List<EventDTO> eventsFound = awgServiceClient.findEventsByStatus(AWGService.EventStatus.InProgress);
-            Assert.AreEqual(1, eventsFound.Count);
+            DataSet eventsFound = awgServiceClient.findEventsByStatus(AWGService.EventStatus.InProgress);
+            Assert.AreEqual(1, eventsFound.Tables.Count);
         }
     }
 }

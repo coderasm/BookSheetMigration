@@ -45,7 +45,6 @@
     <Compile Include="AWGServiceClient.cs" />
     <Compile Include="AWGServiceClientFactory.cs" />
     <Compile Include="AWGServiceCredential.cs" />
-    <Compile Include="EventDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\AWGService\Reference.cs">
       <AutoGen>True</AutoGen>
