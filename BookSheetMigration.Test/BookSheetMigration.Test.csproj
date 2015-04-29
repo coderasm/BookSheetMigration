@@ -55,8 +55,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BookSheetMigrationTest.cs" />
+    <Compile Include="SoapOperationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoapHeaderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookSheetMigration\BookSheetMigration.csproj">
