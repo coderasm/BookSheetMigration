@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BookSheetMigration
 {
-    public class SoapOperation
+    public class SoapAction
     {
-        public string operation { get; private set; }
+        public string action { get; private set; }
+        public string xmlnamespace { get; private set; }
         public Dictionary<string, string> soapPairs { get; private set; }
 
-        public SoapOperation(string operation)
+        public SoapAction(string action, string xmlnamespace)
         {
-            this.operation = operation;
+            this.action = action;
+            this.xmlnamespace = xmlnamespace;
             soapPairs = new Dictionary<string, string>();
         }
 
