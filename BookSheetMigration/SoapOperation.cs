@@ -8,7 +8,7 @@ namespace BookSheetMigration
     public class SoapOperation
     {
         public string operation { get; private set; }
-        private Dictionary<string, string> soapPairs;
+        public Dictionary<string, string> soapPairs { get; private set; }
 
         public SoapOperation(string operation)
         {
