@@ -20,7 +20,7 @@ namespace BookSheetMigration
             return soapPairs.Count;
         }
 
-        public void addPairToOperation(string key, string value)
+        public void addPairToAction(string key, string value)
         {
             soapPairs.Add(key, value);
         }

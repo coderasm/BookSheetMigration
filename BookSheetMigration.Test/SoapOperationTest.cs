@@ -22,7 +22,7 @@ namespace BookSheetMigration.Test
         {
             var key = "akey";
             var value = "avalue";
-            soapAction.addPairToOperation(key, value);
+            soapAction.addPairToAction(key, value);
             Assert.AreEqual(1, soapAction.getPairCount());
         }
     }

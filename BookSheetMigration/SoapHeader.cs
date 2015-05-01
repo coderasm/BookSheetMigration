@@ -9,6 +9,12 @@ namespace BookSheetMigration
         public SoapHeader()
         {
             soapHeaderPairs = new Dictionary<string, string>();
+            setDefaultContentType();
+        }
+
+        private void setDefaultContentType()
+        {
+            soapHeaderPairs.Add("Content-Type", "text/xml; charset=utf-8");
         }
 
         public void addPairToHeader(string key, string value)
