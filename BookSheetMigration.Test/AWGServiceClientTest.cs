@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BookSheetMigration;
 
 namespace BookSheetMigration.Test
 {
@@ -7,10 +8,13 @@ namespace BookSheetMigration.Test
     public class AWGServiceClientTest
     {
         [TestMethod]
+        [Ignore]
         public void WhenAnOperationIsCalledDataIsGivenBack()
         {
             AWGServiceClient client = new AWGServiceClient();
-            foundEvents = client.findEventsByStatus(status);
+            string status = "InProgress";
+            EventDTO foundEvents = client.findEventsByStatus(status);
+            Assert.IsNotNull(foundEvents);
         }
     }
 }

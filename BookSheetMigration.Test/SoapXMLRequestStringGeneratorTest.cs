@@ -13,7 +13,7 @@ namespace BookSheetMigration.Test
         private const string soapXmlStaticEnd = "</soap:Body>" +
                                                 "</soap:Envelope>";
 
-        private SoapAction soapAction;
+        private SoapOperation _soapOperation;
         private string soapXmlActionBegin;
         private string soapXmlActionEnd;
         private string soapXMLActionParameters;
@@ -21,25 +21,25 @@ namespace BookSheetMigration.Test
         [TestInitialize]
         public void setUp()
         {
-            soapAction = new SoapAction("anaction", "anamespace");
-            soapAction.addPairToAction("password", "mypassword");
-            soapAction.addPairToAction("username", "myusername");
-            soapAction.addPairToAction("securitytoken", "mysecuritytoken");
-            soapXmlActionBegin = @"<" + soapAction.action + @" xmlns=""" + soapAction.xmlnamespace + @""">";
+            _soapOperation = new SoapOperation("anaction", "anamespace");
+            _soapOperation.addPairToAction("password", "mypassword");
+            _soapOperation.addPairToAction("username", "myusername");
+            _soapOperation.addPairToAction("securitytoken", "mysecuritytoken");
+            soapXmlActionBegin = @"<" + _soapOperation.Operation + @" xmlns=""" + _soapOperation.xmlnamespace + @""">";
             soapXMLActionParameters = "";
-            foreach (var pair in soapAction.soapPairs)
+            foreach (var pair in _soapOperation.parameters)
             {
                 soapXMLActionParameters += "<" + pair.Key + ">" + pair.Value + "</" + pair.Key + ">";
             }
-            soapXmlActionEnd = @"</" + soapAction.action + ">";
+            soapXmlActionEnd = @"</" + _soapOperation.Operation + ">";
         }
 
         [TestMethod]
         public void WhenGivenASoapAction_AnXMLStringIsBuilt()
         {
             String finalXML = soapXmlStaticBegin + soapXmlActionBegin + soapXMLActionParameters + soapXmlActionEnd + soapXmlStaticEnd;
-            SoapXMLRequestStringGenerator soapXmlRequestStringGenerator = new SoapXMLRequestStringGenerator(soapAction);
-            String soapRequestString = soapXmlRequestStringGenerator.generateSoapXML();
+            SoapXMLGenerator soapXmlGenerator = new SoapXMLGenerator(_soapOperation);
+            String soapRequestString = soapXmlGenerator.generateSoapXmlDocument().OuterXml;
             Assert.AreEqual(finalXML, soapRequestString);
         }
     }

@@ -7,14 +7,14 @@ namespace BookSheetMigration.Test
     public class SoapOperationTest
     {
 
-        private SoapAction soapAction;
+        private SoapOperation _soapOperation;
 
         [TestInitialize]
         public void setUp()
         {
-            String action = "action";
+            String action = "operation";
             String xmlnamespace = "xmlnamespace";
-            soapAction = new SoapAction(action, xmlnamespace);
+            _soapOperation = new SoapOperation(action, xmlnamespace);
         }
 
         [TestMethod]
@@ -22,8 +22,8 @@ namespace BookSheetMigration.Test
         {
             var key = "akey";
             var value = "avalue";
-            soapAction.addPairToAction(key, value);
-            Assert.AreEqual(1, soapAction.getPairCount());
+            _soapOperation.addPairToAction(key, value);
+            Assert.AreEqual(1, _soapOperation.getPairCount());
         }
     }
 }
