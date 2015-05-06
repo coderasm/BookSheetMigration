@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace BookSheetMigration
 {
-    public class AWGEvent
+    public class AWGEventDTO
     {
         [XmlElement("EventId")]
         public int eventId;

@@ -5,9 +5,9 @@ using System.Xml.Serialization;
 namespace BookSheetMigration
 {
     [Serializable, XmlRoot("AWGDataSet")]
-    public class AWGEventList
+    public class AWGEventListDTO
     {
         [XmlElement("Event")]
-        public List<AWGEvent> awgEvents = new List<AWGEvent>();
+        public List<AWGEventDTO> awgEvents = new List<AWGEventDTO>();
     }
 }

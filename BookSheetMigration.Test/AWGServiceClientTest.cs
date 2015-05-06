@@ -17,9 +17,9 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClient client = new AWGServiceClient();
             XElement rootElement = client.findEventsByStatus(EventStatus.InProgress);
-            var serializer = new XmlSerializer(typeof(AWGEventList));
+            var serializer = new XmlSerializer(typeof(AWGEventListDTO));
             var xmlReader = rootElement.CreateReader();
-            var awgEventSetAsObject = (AWGEventList)serializer.Deserialize(xmlReader);
+            var awgEventSetAsObject = (AWGEventListDTO)serializer.Deserialize(xmlReader);
             Assert.AreEqual(2, awgEventSetAsObject.awgEvents.Count);
         }
     }
