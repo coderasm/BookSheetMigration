@@ -16,11 +16,11 @@ namespace BookSheetMigration.Test
         public void WhenAnOperationIsCalledDataIsGivenBack()
         {
             AWGServiceClient client = new AWGServiceClient();
-            XElement rootElement = client.findEventsByStatus(EventStatus.InProgress);
+            AWGEvenDirectoryDTO eventDirectory = client.findEventsByStatus(EventStatus.InProgress);
             var serializer = new XmlSerializer(typeof(AWGEventListDTO));
             var xmlReader = rootElement.CreateReader();
             var awgEventSetAsObject = (AWGEventListDTO)serializer.Deserialize(xmlReader);
-            Assert.AreEqual(2, awgEventSetAsObject.awgEvents.Count);
+            Assert.AreEqual(2, eventDirectory.awgEvents.Count);
         }
     }
 }

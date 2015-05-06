@@ -118,11 +118,11 @@ namespace BookSheetMigration
             return XElement.Parse(response).Descendants("AWGDataSet").First();
         }
 
-        private AWGEventListDTO deserializeResponse(XElement parsedResponse)
+        private AWGEvenDirectoryDTO deserializeResponse(XElement parsedResponse)
         {
-            var serializer = new XmlSerializer(typeof(AWGEventListDTO));
+            var serializer = new XmlSerializer(typeof(AWGEvenDirectoryDTO));
             var xmlReader = parsedResponse.CreateReader();
-            return (AWGEventListDTO)serializer.Deserialize(xmlReader);
+            return (AWGEvenDirectoryDTO)serializer.Deserialize(xmlReader);
         }
     }
 
