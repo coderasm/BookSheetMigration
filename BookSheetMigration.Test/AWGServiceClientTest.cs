@@ -1,6 +1,8 @@
-﻿using System;
+﻿using System.IO;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BookSheetMigration;
 
 namespace BookSheetMigration.Test
 {
@@ -8,13 +10,12 @@ namespace BookSheetMigration.Test
     public class AWGServiceClientTest
     {
         [TestMethod]
-        [Ignore]
         public void WhenAnOperationIsCalledDataIsGivenBack()
         {
             AWGServiceClient client = new AWGServiceClient();
-            string status = "InProgress";
-            EventDTO foundEvents = client.findEventsByStatus(status);
-            Assert.IsNotNull(foundEvents);
+            XElement rootElement = client.findEventsByStatus(EventStatus.InProgress);
+            var awgEvents = rootElement.Descendants("Event");
+            Assert.AreEqual("", foundEvents.ToString());
         }
     }
 }

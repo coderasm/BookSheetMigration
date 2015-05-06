@@ -2,16 +2,16 @@
 
 namespace BookSheetMigration
 {
-    public class SoapOperation
+    public class SoapAction
     {
         public string Operation { get; private set; }
-        public string xmlnamespace { get; private set; }
+        public string actionNamespace { get; private set; }
         public Dictionary<string, string> parameters { get; private set; }
 
-        public SoapOperation(string operation, string xmlnamespace)
+        public SoapAction(string operation, string actionNamespace)
         {
             this.Operation = operation;
-            this.xmlnamespace = xmlnamespace;
+            this.actionNamespace = actionNamespace;
             parameters = new Dictionary<string, string>();
         }
 
@@ -20,7 +20,7 @@ namespace BookSheetMigration
             return parameters.Count;
         }
 
-        public void addPairToAction(string key, string value)
+        public void addParameterPairToAction(string key, string value)
         {
             parameters.Add(key, value);
         }

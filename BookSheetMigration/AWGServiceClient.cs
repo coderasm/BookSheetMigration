@@ -1,79 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.ServiceModel;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
+using System.Runtime.Serialization.Formatters;
+using System.Xml.Linq;
 
 namespace BookSheetMigration
 {
     public class AWGServiceClient
     {
-        private SoapOperation soapOperation;
-        private IDictionary<string, string> actionArguments;
-        private HttpRequestMessage soapRequestMessage;
+        private readonly IDictionary<string, string> actionArguments;
 
         public AWGServiceClient()
         {
             actionArguments = new Dictionary<string, string>();
         }
 
-        public EventDTO findEventsByStatus(string eventStatus)
+        public XElement findEventsByStatus(EventStatus eventStatus)
         {
             string action = "ListEvent";
-            actionArguments.Add("eventStatus", eventStatus);
-            buildSoapOperation(action);
-
-            createSoapXMLRequestString();
-
-            createAndAddHeadersToRequest(action);
-            attachPayloadToRequest(soapOperation);
-            sendRequest();
-
-            return new EventDTO();
+            actionArguments.Add("eventStatus", eventStatus.ToString());
+            return buildRequestAndReturnResponse(action);
         }
 
-        private void buildSoapOperation(string action)
+        public XElement searchInventory(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
         {
-            createOperation(action);
-            addCredentialsToOperation();
-            addSearchCriteriaToOperation();
+            string action = "ListInventory";
+            actionArguments.Add("InventoryStatus", InventoryStatus.Sold.ToString());
+            actionArguments.Add("EventId", eventId.ToString());
+            actionArguments.Add("DealerNumber", dealerNumber);
+            return buildRequestAndReturnResponse(action);
         }
 
-        private void createOperation(string action)
+        private XElement buildRequestAndReturnResponse(string action)
         {
-            soapOperation = new SoapOperation(action, Settings.awgXMLNamespace);
+            var httpRequest = createHttpRequestAndAddHeaders(action);
+            var soapAction = buildSoapActionAndAddParameters(action);
+            var requestXmlDocument = createRequestXmlDocument(soapAction);
+            httpRequest = attachPayloadToRequest(requestXmlDocument, httpRequest);
+            return sendRequest(httpRequest).Result;
         }
 
-        private void addCredentialsToOperation()
+        private SoapAction buildSoapActionAndAddParameters(string action)
         {
-            soapOperation.addPairToAction("securityToken", Settings.securityToken);
-            soapOperation.addPairToAction("clientUsername", Settings.clientUsername);
-            soapOperation.addPairToAction("clientPassword", Settings.password);
+            var soapAction = createAction(action);
+            addCredentialsToAction(soapAction);
+            addSearchCriteriaToAction(soapAction);
+            return soapAction;
         }
 
-        private void addSearchCriteriaToOperation()
+        private SoapAction createAction(string action)
+        {
+            return new SoapAction(action, Settings.awgXmlNamespace);
+        }
+
+        private void addCredentialsToAction(SoapAction soapAction)
+        {
+            soapAction.addParameterPairToAction("securityToken", Settings.securityToken);
+            soapAction.addParameterPairToAction("clientUsername", Settings.clientUsername);
+            soapAction.addParameterPairToAction("clientPassword", Settings.password);
+        }
+
+        private void addSearchCriteriaToAction(SoapAction soapAction)
         {
             foreach (var actionArgument in actionArguments)
             {
-                soapOperation.addPairToAction(actionArgument.Key, actionArgument.Value);
+                soapAction.addParameterPairToAction(actionArgument.Key, actionArgument.Value);
             }
         }
 
-        private XmlDocument createSoapXMLRequestString()
+        private HttpRequestMessage createHttpRequestAndAddHeaders(string action)
         {
-            SoapXMLGenerator soapXmlGenerator = new SoapXMLGenerator(soapOperation);
-            return soapXmlGenerator.generateSoapXmlDocument();
-        }
-
-        private void createAndAddHeadersToRequest(string action)
-        {
-            var requestMessage = createRequestMessage();
-            addHttpHeadersToSoapRequest(requestMessage, action);
+            var soapRequestMessage = createRequestMessage();
+            addHttpHeadersToSoapRequest(soapRequestMessage, action);
+            return soapRequestMessage;
         }
 
         private HttpRequestMessage createRequestMessage()
@@ -83,17 +86,55 @@ namespace BookSheetMigration
 
         private void addHttpHeadersToSoapRequest(HttpRequestMessage requestMessage, string action)
         {
-            requestMessage.Headers.Add("SOAPAction", Settings.awgXMLNamespace + action);
+            requestMessage.Headers.Add("SOAPAction", Settings.awgXmlNamespace + "/" + action);
         }
 
-        private void attachPayloadToRequest(SoapOperation soapOperation)
+        private HttpRequestMessage attachPayloadToRequest(XmlDocument payload, HttpRequestMessage requestMessage)
         {
-            
+            requestMessage.Content = new StringContent(payload.OuterXml, Encoding.UTF8, "text/xml");
+            return requestMessage;
         }
 
-        private void sendRequest()
+        private XmlDocument createRequestXmlDocument(SoapAction soapAction)
         {
-            throw new NotImplementedException();
+            SoapXMLGenerator soapXmlGenerator = new SoapXMLGenerator(soapAction);
+            return soapXmlGenerator.generateSoapXmlDocument();
         }
+
+        private async Task<XElement> sendRequest(HttpRequestMessage httpRequest)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.SendAsync(httpRequest))
+                {
+                    var soapResponse = await response.Content.ReadAsStringAsync();
+                    return parseSoapResponse(soapResponse);
+                }
+            }
+        }
+
+        private XElement parseSoapResponse(string response)
+        {
+            return XElement.Parse(response);
+        }
+    }
+
+    public enum EventStatus
+    {
+        AllEvents,
+        Upcoming,
+        InProgress,
+        Ended,
+        Cancelled
+    }
+
+    public enum InventoryStatus
+    {
+        AllItems,
+        ReadyForRelease,
+        InAuction,
+        NoSale,
+        Sold,
+        Cancelled
     }
 }
