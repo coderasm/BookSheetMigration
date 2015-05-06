@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Runtime.Serialization.Formatters;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace BookSheetMigration
 {
@@ -108,14 +107,22 @@ namespace BookSheetMigration
                 using (var response = await httpClient.SendAsync(httpRequest))
                 {
                     var soapResponse = await response.Content.ReadAsStringAsync();
-                    return parseSoapResponse(soapResponse);
+                    var parsedResponse = parseSoapResponse(soapResponse);
+                    return deserializeResponse(parsedResponse);
                 }
             }
         }
 
         private XElement parseSoapResponse(string response)
         {
-            return XElement.Parse(response);
+            return XElement.Parse(response).Descendants("AWGDataSet").First();
+        }
+
+        private AWGEventList deserializeResponse(XElement parsedResponse)
+        {
+            var serializer = new XmlSerializer(typeof(AWGEventList));
+            var xmlReader = parsedResponse.CreateReader();
+            return (AWGEventList)serializer.Deserialize(xmlReader);
         }
     }
 
