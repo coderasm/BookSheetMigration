@@ -18,23 +18,23 @@ namespace BookSheetMigration
             actionArguments = new Dictionary<string, string>();
         }
 
-        public XElement findEventsByStatus(EventStatus eventStatus)
+        public AWGEventDirectory findEventsByStatus(EventStatus eventStatus)
         {
             string action = "ListEvent";
             actionArguments.Add("eventStatus", eventStatus.ToString());
-            return buildRequestAndReturnResponse(action);
+            return (AWGEventDirectory)buildRequestAndReturnResponse(action);
         }
 
-        public XElement searchInventory(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
+        public AWGInventoryDirectory searchInventory(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
         {
             string action = "ListInventory";
             actionArguments.Add("InventoryStatus", InventoryStatus.Sold.ToString());
             actionArguments.Add("EventId", eventId.ToString());
             actionArguments.Add("DealerNumber", dealerNumber);
-            return buildRequestAndReturnResponse(action);
+            return (AWGInventoryDirectory)buildRequestAndReturnResponse(action);
         }
 
-        private XElement buildRequestAndReturnResponse(string action)
+        private object buildRequestAndReturnResponse(string action)
         {
             var httpRequest = createHttpRequestAndAddHeaders(action);
             var soapAction = buildSoapActionAndAddParameters(action);
@@ -100,7 +100,7 @@ namespace BookSheetMigration
             return soapXmlGenerator.generateSoapXmlDocument();
         }
 
-        private async Task<XElement> sendRequest(HttpRequestMessage httpRequest)
+        private async Task<object> sendRequest(HttpRequestMessage httpRequest)
         {
             using (var httpClient = new HttpClient())
             {
@@ -118,11 +118,11 @@ namespace BookSheetMigration
             return XElement.Parse(response).Descendants("AWGDataSet").First();
         }
 
-        private AWGEvenDirectoryDTO deserializeResponse(XElement parsedResponse)
+        private object deserializeResponse(XElement parsedResponse)
         {
-            var serializer = new XmlSerializer(typeof(AWGEvenDirectoryDTO));
+            var serializer = new XmlSerializer(typeof(AWGEventDirectory));
             var xmlReader = parsedResponse.CreateReader();
-            return (AWGEvenDirectoryDTO)serializer.Deserialize(xmlReader);
+            return serializer.Deserialize(xmlReader);
         }
     }
 
