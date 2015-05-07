@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -13,11 +15,19 @@ namespace BookSheetMigration.Test
     public class AWGServiceClientTest
     {
         [TestMethod]
-        public void WhenAnOperationIsCalledDataIsGivenBack()
+        public void WhenAskingForEventsByStatus_MatchingEventsAreReturned()
         {
             AWGServiceClient client = new AWGServiceClient();
             AWGEventDirectory eventDirectory = client.findEventsByStatus(EventStatus.InProgress);
             Assert.AreEqual(2, eventDirectory.awgEvents.Count);
+        }
+
+        [TestMethod]
+        public void WhenAskingForInventoryByEventIdAndStatus_MatchingInventoryAreReturned()
+        {
+            AWGServiceClient client = new AWGServiceClient();
+            AWGInventoryDirectory inventoryDirectory = client.searchInventory(InventoryStatus.Sold, 123191);
+            Assert.AreEqual(5897, inventoryDirectory.inventory.Count);
         }
     }
 }

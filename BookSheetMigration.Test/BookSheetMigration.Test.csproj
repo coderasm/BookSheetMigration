@@ -60,6 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoapXMLRequestStringGeneratorTest.cs" />
     <Compile Include="AWGServiceClientTest.cs" />
+    <Compile Include="SoapRequestMessageBuilderTest.cs" />
+    <Compile Include="DeserializerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookSheetMigration\BookSheetMigration.csproj">
