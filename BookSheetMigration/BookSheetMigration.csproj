@@ -48,11 +48,14 @@
     <Compile Include="AWGInventoryDTO.cs" />
     <Compile Include="AWGServiceClient.cs" />
     <Compile Include="Deserializer.cs" />
+    <Compile Include="ListEventOperation.cs" />
+    <Compile Include="ListInventoryOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SoapAction.cs" />
+    <Compile Include="SoapOperation.cs" />
     <Compile Include="SoapRequestMessage.cs" />
     <Compile Include="SoapRequestMessageBuilder.cs" />
     <Compile Include="SoapXMLGenerator.cs" />

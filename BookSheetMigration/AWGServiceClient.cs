@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -11,38 +12,16 @@ namespace BookSheetMigration
 {
     public class AWGServiceClient
     {
-        private readonly Dictionary<string, string> actionArguments;
-
-        public AWGServiceClient()
-        {
-            actionArguments = new Dictionary<string, string>();
-        }
-
         public AWGEventDirectory findEventsByStatus(EventStatus eventStatus)
         {
-            string action = "ListEvent";
-            actionArguments.Add("eventStatus", eventStatus.ToString());
-            var response = buildMessageAndReturnResponse(action, actionArguments);
-            var deserializer = new Deserializer<AWGEventDirectory>(response);
-            return deserializer.deserializeResponse();
+            ListEventOperation listEventOperation = new ListEventOperation(eventStatus);
+            return listEventOperation.execute();
         }
 
         public AWGInventoryDirectory searchInventory(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
         {
-            string action = "ListInventory";
-            actionArguments.Add("InventoryStatus", InventoryStatus.Sold.ToString());
-            actionArguments.Add("EventId", eventId.ToString());
-            actionArguments.Add("DealerNumber", dealerNumber);
-            var response = buildMessageAndReturnResponse(action, actionArguments);
-            var deserializer = new Deserializer<AWGInventoryDirectory>(response);
-            return deserializer.deserializeResponse();
-        }
-
-        private XElement buildMessageAndReturnResponse(string action, Dictionary<string, string> actionArguments)
-        {
-            var messageBuilder = new SoapRequestMessageBuilder(action, actionArguments);
-            var message = messageBuilder.buildSoapRequestMessage();
-            return message.sendMessage().Result;
+            ListInventoryOperation listInventoryOperation = new ListInventoryOperation(InventoryStatus.Sold, eventId, dealerNumber);
+            return listInventoryOperation.execute();
         }
     }
 

@@ -27,7 +27,7 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClient client = new AWGServiceClient();
             AWGInventoryDirectory inventoryDirectory = client.searchInventory(InventoryStatus.Sold, 123191);
-            Assert.AreEqual(5897, inventoryDirectory.inventory.Count);
+            Assert.AreEqual(26, inventoryDirectory.inventory.Count);
         }
     }
 }

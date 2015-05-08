@@ -56,12 +56,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="SoapOperationTest.cs" />
+    <Compile Include="SoapActionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoapXMLRequestStringGeneratorTest.cs" />
     <Compile Include="AWGServiceClientTest.cs" />
     <Compile Include="SoapRequestMessageBuilderTest.cs" />
     <Compile Include="DeserializerTest.cs" />
+    <Compile Include="SoapOperationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookSheetMigration\BookSheetMigration.csproj">

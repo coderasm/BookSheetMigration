@@ -12,7 +12,7 @@ namespace BookSheetMigration.Test
             var action = "myaction";
             var actionArguments = new Dictionary<string, string>()
             {
-                {"EventStatus", "Upcoming"}
+                {"eventStatus", "Upcoming"}
             };
             var soapRequestMessageBuilder = new SoapRequestMessageBuilder(action, actionArguments);
             SoapRequestMessage soapRequestMessage = soapRequestMessageBuilder.buildSoapRequestMessage();
