@@ -5,6 +5,8 @@ namespace BookSheetMigration
 {
     public class SoapXMLGenerator
     {
+        private const string envelopeTag = "Envelope";
+        private const string bodyTag = "Body";
         private SoapAction soapAction;
         private XmlDocument xmlDocument = new XmlDocument();
         private const string rootNamespace = "http://schemas.xmlsoap.org/soap/envelope/";
@@ -34,7 +36,7 @@ namespace BookSheetMigration
 
         private void generateAndPopulateEnvelopeNode(XmlDocument xmlDocument)
         {
-            var envelopeNode = xmlDocument.CreateElement("Envelope", rootNamespace);
+            var envelopeNode = xmlDocument.CreateElement(envelopeTag, rootNamespace);
             generateAndPopulateBodyNode(envelopeNode);
             xmlDocument.AppendChild(envelopeNode);
         }
@@ -42,7 +44,7 @@ namespace BookSheetMigration
         public void generateAndPopulateBodyNode(XmlNode envelopeNode)
         {
 
-            var bodyNode = xmlDocument.CreateElement("Body", rootNamespace);
+            var bodyNode = xmlDocument.CreateElement(bodyTag, rootNamespace);
             generateAndPopulateActionNode(bodyNode);
             envelopeNode.AppendChild(bodyNode);
         } 

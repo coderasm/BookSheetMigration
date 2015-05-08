@@ -19,7 +19,7 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClient client = new AWGServiceClient();
             AWGEventDirectory eventDirectory = client.findEventsByStatus(EventStatus.InProgress);
-            Assert.AreEqual(2, eventDirectory.awgEvents.Count);
+            Assert.AreEqual(3, eventDirectory.awgEvents.Count);
         }
 
         [TestMethod]
