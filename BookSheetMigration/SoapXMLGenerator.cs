@@ -6,13 +6,12 @@ namespace BookSheetMigration
     public class SoapXMLGenerator
     {
         private SoapAction soapAction;
-        public XmlDocument xmlDocument { get; private set; }
+        private XmlDocument xmlDocument = new XmlDocument();
         private const string rootNamespace = "http://schemas.xmlsoap.org/soap/envelope/";
 
         public SoapXMLGenerator(SoapAction soapAction)
         {
             this.soapAction = soapAction;
-            this.xmlDocument = new XmlDocument();
             setXmlDocumentDeclaration();
         }
 
