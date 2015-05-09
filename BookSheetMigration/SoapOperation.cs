@@ -15,8 +15,6 @@ namespace BookSheetMigration
         protected string action = "";
         protected string pathToDataNodeFromRoot = "/*";
 
-        protected SoapOperation() { }
-
         public T execute()
         {
             var response = buildMessageAndReturnResponse(action, actionArguments);

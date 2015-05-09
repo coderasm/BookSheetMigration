@@ -18,10 +18,16 @@ namespace BookSheetMigration
             return listEventOperation.execute();
         }
 
-        public AWGInventoryDirectory searchInventory(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
+        public AWGInventoryDirectory findVehiclesByStatusAndId(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
         {
             ListInventoryOperation listInventoryOperation = new ListInventoryOperation(InventoryStatus.Sold, eventId, dealerNumber);
             return listInventoryOperation.execute();
+        }
+
+        public AWGTransactionDirectory findTransactionsByStatusAndId(TransactionStatus transactionStatus, int eventId = 0, string sellingDealerNumber = "", string buyingDealerNumber = "")
+        {
+            ListTransactionOperation listTransactionOperation = new ListTransactionOperation(TransactionStatus.New, eventId, sellingDealerNumber, buyingDealerNumber);
+            return listTransactionOperation.execute();
         }
     }
 
@@ -42,5 +48,16 @@ namespace BookSheetMigration
         NoSale,
         Sold,
         Cancelled
+    }
+
+    public enum TransactionStatus
+    {
+        AllTransactions,
+        New,
+        InProgress,
+        Cancelled,
+        Complete,
+        IfSale,
+        InAbitration
     }
 }

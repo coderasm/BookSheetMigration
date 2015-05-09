@@ -26,8 +26,16 @@ namespace BookSheetMigration.Test
         public void WhenAskingForInventoryByEventIdAndStatus_MatchingInventoryAreReturned()
         {
             AWGServiceClient client = new AWGServiceClient();
-            AWGInventoryDirectory inventoryDirectory = client.searchInventory(InventoryStatus.Sold, 123191);
+            AWGInventoryDirectory inventoryDirectory = client.findVehiclesByStatusAndId(InventoryStatus.Sold, 123191);
             Assert.AreEqual(26, inventoryDirectory.inventory.Count);
+        }
+
+        [TestMethod]
+        public void WhenAskingForTransactionsByEventIdAndStatus_MatchingTransactionsAreReturned()
+        {
+            AWGServiceClient client = new AWGServiceClient();
+            AWGTransactionDirectory transactionDirectory = client.findTransactionsByStatusAndId(TransactionStatus.New, 122972);
+            Assert.AreEqual(26, transactionDirectory.transactions.Count);
         }
     }
 }
