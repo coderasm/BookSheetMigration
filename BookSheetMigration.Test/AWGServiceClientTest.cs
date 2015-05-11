@@ -19,7 +19,7 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClient client = new AWGServiceClient();
             AWGEventDirectory eventDirectory = client.findEventsByStatus(EventStatus.InProgress);
-            Assert.AreEqual(3, eventDirectory.awgEvents.Count);
+            Assert.AreEqual(1, eventDirectory.awgEvents.Count);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClient client = new AWGServiceClient();
             AWGTransactionDirectory transactionDirectory = client.findTransactionsByStatusAndId(TransactionStatus.New, 122972);
-            Assert.AreEqual(26, transactionDirectory.transactions.Count);
+            Assert.AreEqual(53, transactionDirectory.transactions.Count);
         }
     }
 }

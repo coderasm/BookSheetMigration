@@ -5,15 +5,19 @@ using System.Xml;
 
 namespace BookSheetMigration
 {
-    public class SoapRequestMessageBuilder
+    public abstract class SoapRequestMessageBuilder
     {
         private string action;
         private Dictionary<string, string> actionArguments;
 
-        public SoapRequestMessageBuilder(string action, Dictionary<string, string> actionArguments)
+        protected SoapRequestMessageBuilder(string action, Dictionary<string, string> actionArguments)
         {
             this.action = action;
             this.actionArguments = actionArguments;
+        }
+
+        protected SoapRequestMessageBuilder()
+        {
         }
 
         public SoapRequestMessage buildSoapRequestMessage()
@@ -43,12 +47,7 @@ namespace BookSheetMigration
             return new SoapAction(action, Settings.awgXmlNamespace);
         }
 
-        private void addCredentialsToAction(SoapAction soapAction)
-        {
-            soapAction.addParameterPairToAction("securityToken", Settings.securityToken);
-            soapAction.addParameterPairToAction("clientUsername", Settings.clientUsername);
-            soapAction.addParameterPairToAction("clientPassword", Settings.password);
-        }
+        protected abstract void addCredentialsToAction(SoapAction soapAction);
 
         private void addSearchCriteriaToAction(SoapAction soapAction)
         {

@@ -47,6 +47,7 @@
     <Compile Include="AWGInventoryDirectory.cs" />
     <Compile Include="AWGInventoryDTO.cs" />
     <Compile Include="AWGServiceClient.cs" />
+    <Compile Include="AWGSoapRequestMessageBuilder.cs" />
     <Compile Include="AWGTransactionDirectory.cs" />
     <Compile Include="AWGTransactionDTO.cs" />
     <Compile Include="Deserializer.cs" />

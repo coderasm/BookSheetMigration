@@ -25,14 +25,14 @@ namespace BookSheetMigration
 
         private XElement buildMessageAndReturnResponse(string action, Dictionary<string, string> actionArguments)
         {
-            var messageBuilder = new SoapRequestMessageBuilder(action, actionArguments);
+            var messageBuilder = new AWGSoapRequestMessageBuilder(action, actionArguments);
             var message = messageBuilder.buildSoapRequestMessage();
             return message.sendMessage().Result;
         }
 
         protected abstract void setPathToDataNodeFromRoot();
 
-        protected XElement extractDataNode(XElement response)
+        private XElement extractDataNode(XElement response)
         {
             setPathToDataNodeFromRoot();
             return response.XPathSelectElement(pathToDataNodeFromRoot);

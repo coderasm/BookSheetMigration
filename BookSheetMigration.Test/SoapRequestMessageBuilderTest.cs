@@ -14,7 +14,7 @@ namespace BookSheetMigration.Test
             {
                 {"eventStatus", "Upcoming"}
             };
-            var soapRequestMessageBuilder = new SoapRequestMessageBuilder(action, actionArguments);
+            var soapRequestMessageBuilder = new AWGSoapRequestMessageBuilder(action, actionArguments);
             SoapRequestMessage soapRequestMessage = soapRequestMessageBuilder.buildSoapRequestMessage();
             Assert.IsNotNull(soapRequestMessage);
         }

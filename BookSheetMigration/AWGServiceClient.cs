@@ -14,19 +14,19 @@ namespace BookSheetMigration
     {
         public AWGEventDirectory findEventsByStatus(EventStatus eventStatus)
         {
-            ListEventOperation listEventOperation = new ListEventOperation(eventStatus);
+            var listEventOperation = new ListEventOperation(eventStatus);
             return listEventOperation.execute();
         }
 
         public AWGInventoryDirectory findVehiclesByStatusAndId(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
         {
-            ListInventoryOperation listInventoryOperation = new ListInventoryOperation(InventoryStatus.Sold, eventId, dealerNumber);
+            var listInventoryOperation = new ListInventoryOperation(InventoryStatus.Sold, eventId, dealerNumber);
             return listInventoryOperation.execute();
         }
 
         public AWGTransactionDirectory findTransactionsByStatusAndId(TransactionStatus transactionStatus, int eventId = 0, string sellingDealerNumber = "", string buyingDealerNumber = "")
         {
-            ListTransactionOperation listTransactionOperation = new ListTransactionOperation(TransactionStatus.New, eventId, sellingDealerNumber, buyingDealerNumber);
+            var listTransactionOperation = new ListTransactionOperation(TransactionStatus.New, eventId, sellingDealerNumber, buyingDealerNumber);
             return listTransactionOperation.execute();
         }
     }
