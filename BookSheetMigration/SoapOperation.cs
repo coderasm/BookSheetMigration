@@ -9,7 +9,7 @@ using System.Xml.XPath;
 
 namespace BookSheetMigration
 {
-    public abstract class SoapOperation<T>
+    public abstract class SoapOperation<T> where T : new()
     {
         protected readonly Dictionary<string, string> actionArguments = new Dictionary<string, string>();
         protected string action = "";

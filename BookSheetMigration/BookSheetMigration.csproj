@@ -30,7 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsyncPoco">
+      <HintPath>..\packages\AsyncPoco.1.1.2\lib\net45\AsyncPoco.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
@@ -42,14 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsBookSheetEventDAO.cs" />
     <Compile Include="AWGEventDTO.cs" />
     <Compile Include="AWGEventDirectory.cs" />
+    <Compile Include="AWGEventMigrator.cs" />
     <Compile Include="AWGInventoryDirectory.cs" />
     <Compile Include="AWGInventoryDTO.cs" />
     <Compile Include="AWGServiceClient.cs" />
     <Compile Include="AWGSoapRequestMessageBuilder.cs" />
     <Compile Include="AWGTransactionDirectory.cs" />
     <Compile Include="AWGTransactionDTO.cs" />
+    <Compile Include="BookSheetUpComingEventMigrator.cs" />
+    <Compile Include="DataMigrator.cs" />
     <Compile Include="Deserializer.cs" />
     <Compile Include="ListEventOperation.cs" />
     <Compile Include="ListInventoryOperation.cs" />
@@ -66,9 +74,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

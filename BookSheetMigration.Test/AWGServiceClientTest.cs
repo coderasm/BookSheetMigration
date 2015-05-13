@@ -35,7 +35,7 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClient client = new AWGServiceClient();
             AWGTransactionDirectory transactionDirectory = client.findTransactionsByStatusAndId(TransactionStatus.New, 122972);
-            Assert.AreEqual(53, transactionDirectory.transactions.Count);
+            Assert.AreEqual(47, transactionDirectory.transactions.Count);
         }
     }
 }

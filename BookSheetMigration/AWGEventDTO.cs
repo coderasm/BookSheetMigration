@@ -1,20 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
+using AsyncPoco;
 
 namespace BookSheetMigration
 {
+    [TableName(Settings.ABSBookSheetEventTable)]
+    [PrimaryKey("EventId", autoIncrement = false)]
     public class AWGEventDTO
     {
         [XmlElement("EventId")]
-        public int eventId;
-
-        [XmlElement("StartTime")]
-        public DateTime startTime;
+        [Column("EventId")]
+        public int eventId { get; set; }
 
         [XmlElement("EndTime")]
-        public DateTime endTime;
+        [Column("EndTime")]
+        public DateTime endTime { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            AWGEventDTO eventDto = obj as AWGEventDTO;
+            if (eventDto == null)
+                return false;
+            return eventId == eventDto.eventId;
+        }
+
+        public bool Equals(AWGEventDTO eventDto)
+        {
+            if (eventDto == null)
+                return false;
+            return eventId == eventDto.eventId;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace BookSheetMigration
 {
     public class AWGInventoryDTO
     {
-        [XmlElement("EventId")]
+        [XmlElement("eventId")]
         public int eventId;
 
         [XmlElement("DealerNumber")]
