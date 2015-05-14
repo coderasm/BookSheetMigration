@@ -49,14 +49,14 @@
     <Compile Include="AbsBookSheetEventDAO.cs" />
     <Compile Include="AWGEventDTO.cs" />
     <Compile Include="AWGEventDirectory.cs" />
-    <Compile Include="AWGEventMigrator.cs" />
+    <Compile Include="BookSheetEventMigrator.cs" />
     <Compile Include="AWGInventoryDirectory.cs" />
     <Compile Include="AWGInventoryDTO.cs" />
     <Compile Include="AWGServiceClient.cs" />
     <Compile Include="AWGSoapRequestMessageBuilder.cs" />
     <Compile Include="AWGTransactionDirectory.cs" />
     <Compile Include="AWGTransactionDTO.cs" />
-    <Compile Include="BookSheetUpComingEventMigrator.cs" />
+    <Compile Include="BookSheetUpcomingEventMigrator.cs" />
     <Compile Include="DataMigrator.cs" />
     <Compile Include="Deserializer.cs" />
     <Compile Include="ListEventOperation.cs" />

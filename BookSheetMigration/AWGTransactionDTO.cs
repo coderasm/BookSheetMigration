@@ -1,10 +1,21 @@
 ﻿using System;
 using System.Xml.Serialization;
+using AsyncPoco;
 
 namespace BookSheetMigration
 {
+    [TableName(Settings.ABSBookSheetTransactionTable)]
+    [PrimaryKey("EventId, TransactionId", autoIncrement = false)]
     public class AWGTransactionDTO
     {
+        [XmlIgnore]
+        [Column("EventId")]
+        public string eventId { get; set; }
+
+        [XmlElement("TransactionId")]
+        [Column("TransactionId")]
+        public string transactionId { get; set; }
+
         [XmlElement("SellerNumber")]
         public string sellerNumber;
 
@@ -88,5 +99,25 @@ namespace BookSheetMigration
 
         [XmlElement("LastChanged")]
         public DateTime lastChanged;
+
+        public override bool Equals(object obj)
+        {
+            AWGTransactionDTO transactionDto = obj as AWGTransactionDTO;
+            if (transactionDto == null)
+                return false;
+            return eventId == transactionDto.eventId && transactionId == transactionDto.transactionId;
+        }
+
+        public bool Equals(AWGTransactionDTO transactionDto)
+        {
+            if (transactionDto == null)
+                return false;
+            return eventId == transactionDto.eventId && transactionId == transactionDto.transactionId;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

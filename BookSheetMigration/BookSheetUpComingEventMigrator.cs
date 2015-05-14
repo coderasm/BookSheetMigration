@@ -1,33 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BookSheetMigration
 {
-    class BookSheetUpComingEventMigrator : DataMigrator<AWGEventDTO>
+    public class BookSheetUpcomingEventMigrator : BookSheetEventMigrator
     {
-        private EventStatus eventStatus;
-
-        public BookSheetUpComingEventMigrator(EventStatus eventStatus)
+        public BookSheetUpcomingEventMigrator()
         {
-            this.eventStatus = eventStatus;
+            eventStatus = EventStatus.InProgress;
         }
 
-        protected override List<AWGEventDTO> findPossiblyNewRecords()
+        public override void migrate()
         {
-            var awgServiceClient = new AWGServiceClient();
-            var eventDirectory = awgServiceClient.findEventsByStatus(eventStatus);
-            this.possiblyNewRecords = eventDirectory.awgEvents;
-        }
-
-        protected override List<AWGEventDTO> findAlreadyMigratedRecords(List<AWGEventDTO> foundPossiblyNewRecords)
-        {
-            var bookSheetEventDao = new AbsBookSheetEventDAO();
-            return bookSheetEventDao.FindEventsIn(foundPossiblyNewRecords).Result;
-        }
-
-        protected override void migrateRecord(AWGEventDTO possiblyNewRecord)
-        {
-            throw new NotImplementedException();
+            base.migrateEvents();
         }
     }
 }

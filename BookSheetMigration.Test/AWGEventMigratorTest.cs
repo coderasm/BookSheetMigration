@@ -9,8 +9,8 @@ namespace BookSheetMigration.Test
         [TestMethod]
         public void testMigrationOfEvents()
         {
-            AWGEventMigrator eventMigrator = new AWGEventMigrator();
-            eventMigrator.migrateEvents();
+            BookSheetEventMigrator eventMigrator = new BookSheetUpcomingEventMigrator();
+            eventMigrator.migrate();
         }
     }
 }

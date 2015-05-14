@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.IO;
-using System.Linq;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BookSheetMigration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BookSheetMigration.Test
 {
@@ -19,7 +10,7 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClient client = new AWGServiceClient();
             AWGEventDirectory eventDirectory = client.findEventsByStatus(EventStatus.InProgress);
-            Assert.AreEqual(1, eventDirectory.awgEvents.Count);
+            Assert.AreEqual(2, eventDirectory.awgEvents.Count);
         }
 
         [TestMethod]
@@ -35,7 +26,7 @@ namespace BookSheetMigration.Test
         {
             AWGServiceClient client = new AWGServiceClient();
             AWGTransactionDirectory transactionDirectory = client.findTransactionsByStatusAndId(TransactionStatus.New, 122972);
-            Assert.AreEqual(47, transactionDirectory.transactions.Count);
+            Assert.AreEqual(46, transactionDirectory.transactions.Count);
         }
     }
 }

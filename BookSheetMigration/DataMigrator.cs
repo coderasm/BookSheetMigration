@@ -1,53 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BookSheetMigration
 {
     public abstract class DataMigrator<T>
     {
-        protected List<T> existingRecords;
         protected List<T> possiblyNewRecords;
-
-        protected DataMigrator()
-        {
-            possiblyNewRecords = findPossiblyNewRecords();
-            existingRecords = findExistingRecords(possiblyNewRecords);
-        }
+        private Task[] runningTasks; 
 
         protected abstract List<T> findPossiblyNewRecords();
 
-        private List<T> findExistingRecords(List<T> foundPossiblyNewRecords)
+        private bool possibleRecordsToMigrateExist(List<T> possiblyNewRecords)
         {
-            if(possibleRecordsToMigrateExist(foundPossiblyNewRecords))
-                return findAlreadyMigratedRecords(foundPossiblyNewRecords);
-            else
-                return new List<T>();
+ 	        return possiblyNewRecords.Count > 0;
         }
 
-        private bool possibleRecordsToMigrateExist(List<T> foundPossiblyNewRecords)
+        protected void migrateRecords()
         {
- 	        return foundPossiblyNewRecords.Count > 0;
-        }
-
-        protected abstract List<T> findAlreadyMigratedRecords(List<T> foundPossiblyNewRecords);
-
-        public void migrateRecords()
-        {
-            foreach (var possiblyNewRecord in possiblyNewRecords)
+            possiblyNewRecords = findPossiblyNewRecords();
+            if (possibleRecordsToMigrateExist(possiblyNewRecords))
             {
-                if (shouldMigrateRecord(possiblyNewRecord))
-                    migrateRecord(possiblyNewRecord);
+                initializeRunningTasks(possiblyNewRecords.Count);
+                for(int i = 0; i < possiblyNewRecords.Count; i++)
+                {
+                    var runningTask = migrateRecord(possiblyNewRecords[i]);
+                    runningTasks[i] = runningTask;
+                }
+                Task.WaitAll(runningTasks);
             }
         }
 
-        protected abstract void migrateRecord(T possiblyNewRecord);
-
-        private bool shouldMigrateRecord(T possiblyNewRecord)
+        private void initializeRunningTasks(int recordCount)
         {
-            return !existingRecords.Contains(possiblyNewRecord);
+            runningTasks = new Task[recordCount];
         }
+
+        protected abstract Task<T> migrateRecord(T possiblyNewRecord);
     }
 }
