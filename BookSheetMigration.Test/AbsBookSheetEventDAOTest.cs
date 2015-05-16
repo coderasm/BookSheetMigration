@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AsyncPoco;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BookSheetMigration.Test
@@ -8,16 +9,16 @@ namespace BookSheetMigration.Test
     public class AbsBookSheetEventDAOTest
     {
         [TestMethod]
-        [Ignore]
         public void testFindingAlreadyMigratedEvents()
         {
             var myEvent = new AWGEventDTO();
             myEvent.eventId = 21229;
             myEvent.endTime = DateTime.Now;
 
-            AbsBookSheetEventDAO absBookSheetEventDao = new AbsBookSheetEventDAO();
-            var result = absBookSheetEventDao.saveEvent(myEvent).IsCompleted;
-            Assert.IsTrue(result);
+            DataMigrator<AWGEventDTO> bookSheetUpcomingEventMigrator = new BookSheetEventMigrator(EventStatus.Upcoming);
+            var migrationTask = bookSheetUpcomingEventMigrator.migrateRecord(myEvent);
+            migrationTask.Wait();
+            Assert.IsTrue(migrationTask.IsCompleted);
         }
     }
 }

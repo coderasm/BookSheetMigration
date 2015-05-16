@@ -3,9 +3,14 @@ using System.Threading.Tasks;
 
 namespace BookSheetMigration
 {
-    public abstract class BookSheetEventMigrator : DataMigrator<AWGEventDTO>
+    public class BookSheetEventMigrator : DataMigrator<AWGEventDTO>
     {
         protected EventStatus eventStatus;
+
+        public BookSheetEventMigrator(EventStatus eventStatus)
+        {
+            this.eventStatus = eventStatus;
+        }
 
         protected override List<AWGEventDTO> findPossiblyNewRecords()
         {
@@ -14,17 +19,16 @@ namespace BookSheetMigration
             return eventDirectory.awgEvents;
         }
 
-        protected async override Task<AWGEventDTO> migrateRecord(AWGEventDTO possiblyNewRecord)
+        public override Task migrateRecord(AWGEventDTO possiblyNewRecord)
         {
-            AbsBookSheetEventDAO bookSheetEventDao = new AbsBookSheetEventDAO();
-            await bookSheetEventDao.saveEvent(possiblyNewRecord);
+            if(recordExists(possiblyNewRecord))
+                return entityDao.updateEvent(possiblyNewRecord);
+            return entityDao.insertEvent(possiblyNewRecord);
         }
 
-        protected void migrateEvents()
+        protected override bool recordExists(AWGEventDTO possiblyNewRecord)
         {
-            migrateRecords();
+            return entityDao.eventExists(possiblyNewRecord).Result;
         }
-
-        public abstract void migrate();
     }
 }

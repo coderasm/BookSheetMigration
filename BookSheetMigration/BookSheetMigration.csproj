@@ -30,7 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncPoco">
+    <Reference Include="AsyncPoco, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AsyncPoco.1.1.2\lib\net45\AsyncPoco.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -46,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbsBookSheetEventDAO.cs" />
     <Compile Include="AWGEventDTO.cs" />
     <Compile Include="AWGEventDirectory.cs" />
     <Compile Include="BookSheetEventMigrator.cs" />
@@ -56,9 +56,10 @@
     <Compile Include="AWGSoapRequestMessageBuilder.cs" />
     <Compile Include="AWGTransactionDirectory.cs" />
     <Compile Include="AWGTransactionDTO.cs" />
-    <Compile Include="BookSheetUpcomingEventMigrator.cs" />
+    <Compile Include="BookSheetTransactionMigrator.cs" />
     <Compile Include="DataMigrator.cs" />
     <Compile Include="Deserializer.cs" />
+    <Compile Include="EntityDAO.cs" />
     <Compile Include="ListEventOperation.cs" />
     <Compile Include="ListInventoryOperation.cs" />
     <Compile Include="ListTransactionOperation.cs" />

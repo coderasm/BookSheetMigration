@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsyncPoco;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BookSheetMigration
@@ -6,9 +7,15 @@ namespace BookSheetMigration
     public abstract class DataMigrator<T>
     {
         protected List<T> possiblyNewRecords;
-        private Task[] runningTasks; 
+        protected EntityDAO<T> entityDao;
+        private Task[] runningTasks;
 
         protected abstract List<T> findPossiblyNewRecords();
+
+        public DataMigrator()
+        {
+            entityDao = new EntityDAO<T>(new Database(Settings.ABSProductionDbConnectionString, Settings.ABSDatabaseProviderName));
+        } 
 
         private bool possibleRecordsToMigrateExist(List<T> possiblyNewRecords)
         {
@@ -21,12 +28,17 @@ namespace BookSheetMigration
             if (possibleRecordsToMigrateExist(possiblyNewRecords))
             {
                 initializeRunningTasks(possiblyNewRecords.Count);
-                for(int i = 0; i < possiblyNewRecords.Count; i++)
-                {
-                    var runningTask = migrateRecord(possiblyNewRecords[i]);
-                    runningTasks[i] = runningTask;
-                }
+                createAndSaveMigrationTasks();
                 Task.WaitAll(runningTasks);
+            }
+        }
+
+        private void createAndSaveMigrationTasks()
+        {
+            for (int i = 0; i < possiblyNewRecords.Count; i++)
+            {
+                var runningTask = migrateRecord(possiblyNewRecords[i]);
+                runningTasks[i] = runningTask;
             }
         }
 
@@ -35,6 +47,13 @@ namespace BookSheetMigration
             runningTasks = new Task[recordCount];
         }
 
-        protected abstract Task<T> migrateRecord(T possiblyNewRecord);
+        protected abstract bool recordExists(T possiblyNewRecord);
+
+        public abstract Task migrateRecord(T possiblyNewRecord);
+
+        public void migrate()
+        {
+            migrateRecords();
+        }
     }
 }
