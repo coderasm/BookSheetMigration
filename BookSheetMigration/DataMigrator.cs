@@ -33,6 +33,11 @@ namespace BookSheetMigration
             }
         }
 
+        private void initializeRunningTasks(int recordCount)
+        {
+            runningTasks = new Task[recordCount];
+        }
+
         private void createAndSaveMigrationTasks()
         {
             for (int i = 0; i < possiblyNewRecords.Count; i++)
@@ -42,14 +47,10 @@ namespace BookSheetMigration
             }
         }
 
-        private void initializeRunningTasks(int recordCount)
+        public Task<object> migrateRecord(T possiblyNewRecord)
         {
-            runningTasks = new Task[recordCount];
+            return entityDao.insert(possiblyNewRecord);
         }
-
-        protected abstract bool recordExists(T possiblyNewRecord);
-
-        public abstract Task migrateRecord(T possiblyNewRecord);
 
         public void migrate()
         {

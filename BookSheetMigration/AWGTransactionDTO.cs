@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using AsyncPoco;
 
@@ -8,97 +9,157 @@ namespace BookSheetMigration
     [PrimaryKey("EventId, TransactionId", autoIncrement = false)]
     public class AWGTransactionDTO
     {
-        [XmlIgnore]
+        public AWGTransactionDTO()
+        {
+            soldDate = DateTime.Now;
+        }
+
         [Column("EventId")]
-        public string eventId { get; set; }
+        public int eventId { get; set; }
 
         [XmlElement("TransactionId")]
         [Column("TransactionId")]
-        public string transactionId { get; set; }
+        public int transactionId { get; set; }
+
+        [XmlElement("Amount")]
+        [Column("BidAmount")]
+        public decimal bidAmount { get; set; }
+
+        [XmlIgnore]
+        [Column("SoldDate")]
+        public DateTime soldDate { get; set; }
 
         [XmlElement("SellerNumber")]
-        public string sellerNumber;
+        [Column("SellerDmvNumber")]
+        public string sellerNumber { get; set; }
+
+        [Column("SellerDealerId")]
+        public string sellerDealerId { get; set; }
 
         [XmlElement("SellerDealerName")]
-        public string sellerCompanyName;
+        [Column("SellerCompanyName")]
+        public string sellerCompanyName { get; set; }
 
         [XmlElement("SellerFirstName")]
-        public string sellerFirstName;
+        [Column("SellerFirstName")]
+        public string sellerFirstName { get; set; }
 
         [XmlElement("SellerLastName")]
-        public string sellerLastName;
+        [Column("SellerLastName")]
+        public string sellerLastName { get; set; }
 
         [XmlElement("SellerAddress")]
-        public string sellerAddress;
+        [Column("SellerAddress")]
+        public string sellerAddress { get; set; }
 
         [XmlElement("SellerCity")]
-        public string sellerCity;
+        [Column("SellerCity")]
+        public string sellerCity { get; set; }
 
         [XmlElement("SellerState")]
-        public string sellerState;
+        [Column("SellerState")]
+        public string sellerState { get; set; }
 
         [XmlElement("SellerZip")]
-        public string sellerZip;
+        [Column("SellerZip")]
+        public string sellerZip { get; set; }
+
+        private string sellersPhone = "";
 
         [XmlElement("SellerPhone")]
-        public string sellerPhone;
+        [Column("SellerPhone")]
+        public string sellerPhone {
+            get
+            {
+                return sellersPhone;
+            }
+            set
+            {
+                sellersPhone = returnOnlyNumbers(value);
+            }
+        }
 
         [XmlElement("BuyerNumber")]
-        public string buyerNumber;
+        [Column("BuyerDmvNumber")]
+        public string buyerNumber { get; set; }
+
+        [Column("BuyerDealerId")]
+        public string buyerDealerId { get; set; }
+
+        [Column("BuyerContactId")]
+        public string buyerContactId { get; set; }
 
         [XmlElement("BuyerDealerName")]
-        public string buyerCompanyName;
+        [Column("BuyerCompanyName")]
+        public string buyerCompanyName { get; set; }
 
         [XmlElement("BuyerFirstName")]
-        public string buyerFirstName;
+        [Column("BuyerFirstName")]
+        public string buyerFirstName { get; set; }
 
         [XmlElement("BuyerLastName")]
-        public string buyerLastName;
+        [Column("BuyerLastName")]
+        public string buyerLastName { get; set; }
 
         [XmlElement("BuyerAddress")]
-        public string buyerAddress;
+        [Column("BuyerAddress")]
+        public string buyerAddress { get; set; }
 
         [XmlElement("BuyerCity")]
-        public string buyerCity;
+        [Column("BuyerCity")]
+        public string buyerCity { get; set; }
 
         [XmlElement("BuyerState")]
-        public string buyerState;
+        [Column("BuyerState")]
+        public string buyerState { get; set; }
 
         [XmlElement("BuyerZip")]
-        public string buyerZip;
+        [Column("BuyerZip")]
+        public string buyerZip { get; set; }
+
+        private string buyersPhone = "";
 
         [XmlElement("BuyerPhone")]
-        public string buyerPhone;
+        [Column("BuyerPhone")]
+        public string buyerPhone {
+            get
+            {
+                return buyersPhone;
+            }
+            set
+            {
+                buyersPhone = returnOnlyNumbers(value);
+            }
+        }
+
+        private static string returnOnlyNumbers(string uncleaned)
+        {
+            return Regex.Replace(uncleaned, @"[^\d]", "");
+        }
 
         [XmlElement("Mileage")]
-        public string mileage;
+        [Column("Mileage")]
+        public int mileage { get; set; }
 
         [XmlElement("VIN")]
-        public string vin;
+        [Column("VIN")]
+        public string vin { get; set; }
 
         [XmlElement("VehicleYear")]
-        public string year;
+        [Column("VehicleYear")]
+        public string year { get; set; }
 
         [XmlElement("Make")]
-        public string make;
+        [Column("Make")]
+        public string make { get; set; }
 
         [XmlElement("Model")]
-        public string model;
+        [Column("Model")]
+        public string model { get; set; }
 
         [XmlElement("OtherCharges")]
-        public string transportFee;
-
-        [XmlElement("BuyFee")]
-        public string buyFee;
-
-        [XmlElement("SellFee")]
-        public string sellFee;
-
-        [XmlElement("DocumentFee")]
-        public string documentFee;
-
-        [XmlElement("LastChanged")]
-        public DateTime lastChanged;
+        [Column("TransportFee")]
+        public decimal transportFee { get; set; }
 
         public override bool Equals(object obj)
         {

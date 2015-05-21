@@ -12,22 +12,22 @@ namespace BookSheetMigration
 {
     public class AWGServiceClient
     {
-        public AWGEventDirectory findEventsByStatus(EventStatus eventStatus)
+        public List<AWGEventDTO> findEventsByStatus(EventStatus eventStatus)
         {
             var listEventOperation = new ListEventOperation(eventStatus);
-            return listEventOperation.execute();
+            return listEventOperation.execute().awgEvents;
         }
 
-        public AWGInventoryDirectory findVehiclesByStatusAndId(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
+        public List<AWGInventoryDTO> findVehiclesByStatusAndId(InventoryStatus inventoryStatus, int eventId = 0, string dealerNumber = "")
         {
             var listInventoryOperation = new ListInventoryOperation(InventoryStatus.Sold, eventId, dealerNumber);
-            return listInventoryOperation.execute();
+            return listInventoryOperation.execute().inventory;
         }
 
-        public AWGTransactionDirectory findTransactionsByStatusAndId(TransactionStatus transactionStatus, int eventId = 0, string sellingDealerNumber = "", string buyingDealerNumber = "")
+        public List<AWGTransactionDTO> findTransactionsByStatusAndId(TransactionStatus transactionStatus, int eventId = 0, string sellingDealerNumber = "", string buyingDealerNumber = "")
         {
             var listTransactionOperation = new ListTransactionOperation(TransactionStatus.New, eventId, sellingDealerNumber, buyingDealerNumber);
-            return listTransactionOperation.execute();
+            return listTransactionOperation.execute().transactions;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AsyncPoco;
 
@@ -13,31 +14,36 @@ namespace BookSheetMigration
             this.databaseConnection = databaseConnection;
         }
 
-        public async Task<List<T>> select()
+        public async Task<List<T>> select(Sql sql)
         {
-            await databaseConnection.FetchAsync<T>(entity);
+            return await databaseConnection.FetchAsync<T>(sql);
         }
 
-        public async Task update(T entity)
+        public async Task<int> update(T entity)
         {
-            await databaseConnection.UpdateAsync(entity);
+            if(await exists(entity))
+                return await databaseConnection.UpdateAsync(entity);
+            return 0;
         }
 
-        public async Task insert(T entity)
+        public async Task<object> insert(T entity)
         {
-            await databaseConnection.InsertAsync(entity);
+            if(!await exists(entity))
+                return await databaseConnection.InsertAsync(entity);
+            return 0;
         }
 
         public async Task<bool> exists(T entity)
         {
+
             return await databaseConnection.ExistsAsync(entity);
         }
 
-        public async Task save(T entity)
+        public async Task<object> save(T entity)
         {
-            if (exists(entity).Result)
-                await update(entity);
-            await insert(entity);
+            if(await exists(entity))
+                return await update(entity);
+            return await insert(entity);
         }
     }
 }

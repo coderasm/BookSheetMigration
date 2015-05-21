@@ -15,20 +15,7 @@ namespace BookSheetMigration
         protected override List<AWGEventDTO> findPossiblyNewRecords()
         {
             var awgServiceClient = new AWGServiceClient();
-            var eventDirectory = awgServiceClient.findEventsByStatus(eventStatus);
-            return eventDirectory.awgEvents;
-        }
-
-        public override Task migrateRecord(AWGEventDTO possiblyNewRecord)
-        {
-            if(recordExists(possiblyNewRecord))
-                return entityDao.updateEvent(possiblyNewRecord);
-            return entityDao.insertEvent(possiblyNewRecord);
-        }
-
-        protected override bool recordExists(AWGEventDTO possiblyNewRecord)
-        {
-            return entityDao.eventExists(possiblyNewRecord).Result;
+            return awgServiceClient.findEventsByStatus(eventStatus);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace BookSheetMigration.Test
         [TestMethod]
         public void testTransactionMigration()
         {
-            DataMigrator<AWGTransactionDTO> transactionMigrator = new BookSheetTransactionMigrator(TransactionStatus.New);
+            DataMigrator<AWGTransactionDTO> transactionMigrator = new BookSheetTransactionMigrator();
             transactionMigrator.migrate();
         }
     }

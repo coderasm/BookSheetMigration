@@ -9,8 +9,10 @@ namespace BookSheetMigration.Test
         [TestMethod]
         public void testMigrationOfEvents()
         {
-            DataMigrator<AWGEventDTO> eventMigrator = new BookSheetEventMigrator(EventStatus.Upcoming);
-            eventMigrator.migrate();
+            DataMigrator<AWGEventDTO> upcomingEventMigrator = new BookSheetEventMigrator(EventStatus.Upcoming);
+            upcomingEventMigrator.migrate();
+            DataMigrator<AWGEventDTO> inprogressEventMigrator = new BookSheetEventMigrator(EventStatus.InProgress);
+            inprogressEventMigrator.migrate();
         }
     }
 }

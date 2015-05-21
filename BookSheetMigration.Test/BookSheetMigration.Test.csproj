@@ -35,8 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncPoco, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AsyncPoco">
       <HintPath>..\packages\AsyncPoco.1.1.2\lib\net45\AsyncPoco.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
@@ -71,6 +70,7 @@
     <Compile Include="AbsBookSheetEventDAOTest.cs" />
     <Compile Include="AWGEventMigratorTest.cs" />
     <Compile Include="AWGTransactionMigratorTest.cs" />
+    <Compile Include="TransactionUpdaterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookSheetMigration\BookSheetMigration.csproj">
