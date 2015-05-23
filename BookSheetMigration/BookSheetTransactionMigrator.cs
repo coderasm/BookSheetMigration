@@ -21,7 +21,7 @@ namespace BookSheetMigration
             var queryObject = Sql.Builder
                         .Select("*")
                         .From(Settings.ABSBookSheetEventTable)
-                        .Where("EndTime > '" + day.ToString(dateFormat) + "'");
+                        .Where("EndTime >= '" + day.ToString(dateFormat) + "'");
             return eventDao.@select(queryObject).Result;
         }
 

@@ -16,7 +16,7 @@ namespace BookSheetMigration
 	                                                LEFT JOIN ABSContact..CONTSUPP c ON c.ACCOUNTNO = c1.ACCOUNTNO AND c.RECTYPE = 'C' AND c.TITLE = 'Used Car Manager' AND c1.UDEALERCA1 = 'Active'
                                                 WHERE dbo.whoami(c1.ACCOUNTNO) NOT LIKE '%-%' AND c.ACCOUNTNO = '{0}'";
 
-        private AWGTransactionDTO transaction;
+        private readonly AWGTransactionDTO transaction;
 
         public TransactionDealerIdsMatcher(AWGTransactionDTO transaction)
         {
@@ -50,19 +50,24 @@ namespace BookSheetMigration
 
         private void setSellingDealerIdIfOnlyOneFound()
         {
-            var sellerDealerId = findDealerId(transaction.sellerNumber);
-            if (sellerDealerId.Result.Count == 1)
-                transaction.sellerDealerId = sellerDealerId.Result[0];
+            var possibleDealerIds = findDealerIds(transaction.sellerNumber);
+            if (foundOnlyOneIdIn(possibleDealerIds))
+                transaction.sellerDealerId = possibleDealerIds.Result[0];
+        }
+
+        private static bool foundOnlyOneIdIn(Task<List<string>> possibleDealerIds)
+        {
+            return possibleDealerIds.Result.Count == 1;
         }
 
         private void setBuyingDealerIdIfOnlyOneFound()
         {
-            var buyerDealerId = findDealerId(transaction.buyerNumber);
-            if (buyerDealerId.Result.Count == 1)
-                transaction.buyerDealerId = buyerDealerId.Result[0];
+            var possibleDealerIds = findDealerIds(transaction.buyerNumber);
+            if (foundOnlyOneIdIn(possibleDealerIds))
+                transaction.buyerDealerId = possibleDealerIds.Result[0];
         }
 
-        private async Task<List<string>> findDealerId(string dealerDmvNumber)
+        private async Task<List<string>> findDealerIds(string dealerDmvNumber)
         {
             var database = new Database(Settings.ABSProductionDbConnectionString, Settings.ABSDatabaseProviderName);
             var dealerIdQueryFilled = String.Format(dealerIdQuery, dealerDmvNumber);
@@ -71,9 +76,9 @@ namespace BookSheetMigration
 
         private void setBuyingContactIdIfOnlyOneFount()
         {
-            var buyerContactId = findContactId(transaction.buyerDealerId);
-            if(buyerContactId.Result.Count == 1)
-                transaction.buyerContactId = buyerContactId.Result[0];
+            var possibleContactIds = findContactId(transaction.buyerDealerId);
+            if(foundOnlyOneIdIn(possibleContactIds))
+                transaction.buyerContactId = possibleContactIds.Result[0];
         }
 
         private async Task<List<string>> findContactId(string dealerId)
