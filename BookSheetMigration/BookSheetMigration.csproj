@@ -57,14 +57,21 @@
     <Compile Include="AWGTransactionDirectory.cs" />
     <Compile Include="AWGTransactionDTO.cs" />
     <Compile Include="BookSheetTransactionMigrator.cs" />
+    <Compile Include="TransactionBuyerContactIdMatcher.cs" />
+    <Compile Include="ContactIdMatcher.cs" />
     <Compile Include="DataMigrator.cs" />
+    <Compile Include="DealerContactDTO.cs" />
+    <Compile Include="DealerDTO.cs" />
+    <Compile Include="DealerIdMatcher.cs" />
     <Compile Include="Deserializer.cs" />
     <Compile Include="EntityDAO.cs" />
+    <Compile Include="IdMatcher.cs" />
     <Compile Include="ListEventOperation.cs" />
     <Compile Include="ListInventoryOperation.cs" />
     <Compile Include="ListTransactionOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransactionDealerIdsMatcher.cs" />
+    <Compile Include="TransactionBuyerDealerIdMatcher.cs" />
+    <Compile Include="TransactionSellerDealerIdMatcher.cs" />
     <Compile Include="Settings.cs">
       <SubType>Code</SubType>
     </Compile>

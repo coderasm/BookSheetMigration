@@ -42,12 +42,31 @@ namespace BookSheetMigration
         {
             transactions.ForEach(t =>
             {
-                t.eventId = id;
-                TransactionDealerIdsMatcher transactionDealerIdsMatcher = new TransactionDealerIdsMatcher(t);
-                transactionDealerIdsMatcher.update();
+                setEventId(id, t);
+                setDealerIds(t);
+                setContactIds(t);
             });
             return transactions;
-        } 
+        }
+
+        private void setEventId(int id, AWGTransactionDTO t)
+        {
+            t.eventId = id;
+        }
+
+        private void setDealerIds(AWGTransactionDTO t)
+        {
+            var transactionSellerDealerIdMatcher = new TransactionSellerDealerIdMatcher(t);
+            transactionSellerDealerIdMatcher.matchAndInsertIds();
+            var transactionBuyerDealerIdMatcher = new TransactionBuyerDealerIdMatcher(t);
+            transactionBuyerDealerIdMatcher.matchAndInsertIds();
+        }
+
+        private void setContactIds(AWGTransactionDTO t)
+        {
+            var transactionBuyerContactIdMatcher = new TransactionBuyerContactIdMatcher(t);
+            transactionBuyerContactIdMatcher.matchAndInsertIds();
+        }
 
         private EntityDAO<AWGEventDTO> createEventDao()
         {
