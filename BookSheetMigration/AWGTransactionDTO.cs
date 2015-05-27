@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using AsyncPoco;
+using Newtonsoft.Json;
 
 namespace BookSheetMigration
 {
@@ -68,6 +69,7 @@ namespace BookSheetMigration
         [Column("SellerZip")]
         public string sellerZip { get; set; }
 
+        [JsonIgnore]
         private string sellersPhone = "";
 
         [XmlElement("SellerPhone")]
@@ -127,6 +129,7 @@ namespace BookSheetMigration
         [Column("BuyerZip")]
         public string buyerZip { get; set; }
 
+        [JsonIgnore]
         private string buyersPhone = "";
 
         [XmlElement("BuyerPhone")]

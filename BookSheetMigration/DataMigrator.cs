@@ -14,7 +14,7 @@ namespace BookSheetMigration
 
         public DataMigrator()
         {
-            entityDao = new EntityDAO<T>(new Database(Settings.ABSProductionDbConnectionString, Settings.ABSDatabaseProviderName));
+            entityDao = new EntityDAO<T>();
         } 
 
         private bool possibleRecordsToMigrateExist(List<T> possiblyNewRecords)

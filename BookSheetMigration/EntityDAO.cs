@@ -9,12 +9,12 @@ namespace BookSheetMigration
     {
         private Database databaseConnection;
 
-        public EntityDAO(Database databaseConnection)
+        public EntityDAO()
         {
-            this.databaseConnection = databaseConnection;
+            this.databaseConnection = DatabaseFactory.makeDatabase();
         }
 
-        public async Task<List<T>> select(Sql sql)
+        public async Task<List<T>> select(string sql)
         {
             return await databaseConnection.FetchAsync<T>(sql);
         }

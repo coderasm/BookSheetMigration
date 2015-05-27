@@ -18,11 +18,8 @@ namespace BookSheetMigration
         private List<AWGEventDTO> findEventsNotExpiredBy(DateTime day)
         {
             var eventDao = createEventDao();
-            var queryObject = Sql.Builder
-                        .Select("*")
-                        .From(Settings.ABSBookSheetEventTable)
-                        .Where("EndTime >= '" + day.ToString(dateFormat) + "'");
-            return eventDao.@select(queryObject).Result;
+            var query = "SELECT * FROM " + Settings.ABSBookSheetEventTable + " WHERE EndTime >= '" + day.ToString(dateFormat) + "'";
+            return eventDao.@select(query).Result;
         }
 
         private List<AWGTransactionDTO> findSalesInEvents(List<AWGEventDTO> liveEvents)
@@ -70,7 +67,7 @@ namespace BookSheetMigration
 
         private EntityDAO<AWGEventDTO> createEventDao()
         {
-            return new EntityDAO<AWGEventDTO>(new Database(Settings.ABSProductionDbConnectionString, Settings.ABSDatabaseProviderName));
+            return new EntityDAO<AWGEventDTO>();
         }
     }
 }

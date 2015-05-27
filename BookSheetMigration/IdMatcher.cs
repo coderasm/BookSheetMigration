@@ -40,9 +40,9 @@ namespace BookSheetMigration
 
         protected async Task<List<T>> findEntities(string entityNumber)
         {
-            var database = new Database(Settings.ABSProductionDbConnectionString, Settings.ABSDatabaseProviderName);
+            var entityDao = new EntityDAO<T>();
             var queryFilled = String.Format(query, entityNumber);
-            return await database.FetchAsync<T>(queryFilled);
+            return await entityDao.@select(queryFilled);
         }
 
         private bool foundAtLeastOneEntityIn(List<T> items)
