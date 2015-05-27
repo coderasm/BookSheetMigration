@@ -1,4 +1,6 @@
-﻿namespace BookSheetMigration
+﻿using System.Collections.Generic;
+
+namespace BookSheetMigration
 {
     class TransactionBuyerDealerIdMatcher : DealerIdMatcher
     {
@@ -19,9 +21,14 @@
             return transaction.buyerNumber;
         }
 
-        protected override void setEntityId(DealerDTO entity)
+        protected override void setPossibleEntityId(DealerDTO entity)
         {
             transaction.buyerDealerId = entity.dealerId;
+        }
+
+        protected override void setPossibleEntityIds(List<DealerDTO> entities)
+        {
+            transaction.buyers = entities;
         }
     }
 }

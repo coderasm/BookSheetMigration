@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using AsyncPoco;
@@ -35,6 +36,9 @@ namespace BookSheetMigration
 
         [Column("SellerDealerId")]
         public string sellerDealerId { get; set; }
+
+        [Ignore]
+        public List<DealerDTO> sellers { get; set; }
 
         [XmlElement("SellerDealerName")]
         [Column("SellerCompanyName")]
@@ -86,8 +90,14 @@ namespace BookSheetMigration
         [Column("BuyerDealerId")]
         public string buyerDealerId { get; set; }
 
+        [Ignore]
+        public List<DealerDTO> buyers { get; set; }
+
         [Column("BuyerContactId")]
         public string buyerContactId { get; set; }
+
+        [Ignore]
+        public List<DealerContactDTO> buyerContacts { get; set; }
 
         [XmlElement("BuyerDealerName")]
         [Column("BuyerCompanyName")]

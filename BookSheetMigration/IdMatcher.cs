@@ -16,7 +16,7 @@ namespace BookSheetMigration
             doMatch();
         }
 
-        protected void doMatch()
+        private void doMatch()
         {
             if (entityNumberExists())
             {
@@ -32,22 +32,26 @@ namespace BookSheetMigration
         private void setIdIfOnlyOneFound(string entityNumber)
         {
             var possibleEntities = findEntities(entityNumber).Result;
-            if (foundOnlyOneEntityIn(possibleEntities))
-                setEntityId(possibleEntities[0]);
+            if (foundAtLeastOneEntityIn(possibleEntities))
+                setPossibleEntityId(possibleEntities[0]);
+            setPossibleEntityIds(possibleEntities);
+
         }
 
-        public async Task<List<T>> findEntities(string entityNumber)
+        protected async Task<List<T>> findEntities(string entityNumber)
         {
             var database = new Database(Settings.ABSProductionDbConnectionString, Settings.ABSDatabaseProviderName);
             var queryFilled = String.Format(query, entityNumber);
             return await database.FetchAsync<T>(queryFilled);
         }
 
-        private bool foundOnlyOneEntityIn(List<T> items)
+        private bool foundAtLeastOneEntityIn(List<T> items)
         {
-            return items.Count == 1;
+            return items.Count > 0;
         }
 
-        protected abstract void setEntityId(T entity);
+        protected abstract void setPossibleEntityId(T entity);
+
+        protected abstract void setPossibleEntityIds(List<T> entities);
     }
 }
