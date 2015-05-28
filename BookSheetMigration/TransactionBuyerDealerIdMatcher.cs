@@ -2,7 +2,7 @@
 
 namespace BookSheetMigration
 {
-    class TransactionBuyerDealerIdMatcher : DealerIdMatcher
+    public class TransactionBuyerDealerIdMatcher : DealerIdMatcher
     {
 
         public TransactionBuyerDealerIdMatcher(AWGTransactionDTO transaction)

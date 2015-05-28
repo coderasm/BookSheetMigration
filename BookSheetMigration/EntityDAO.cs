@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AsyncPoco;
 
@@ -11,7 +10,7 @@ namespace BookSheetMigration
 
         public EntityDAO()
         {
-            this.databaseConnection = DatabaseFactory.makeDatabase();
+            databaseConnection = DatabaseFactory.makeDatabase();
         }
 
         public async Task<List<T>> select(string sql)
