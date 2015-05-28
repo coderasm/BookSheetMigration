@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Cryptography;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace BookSheetMigration

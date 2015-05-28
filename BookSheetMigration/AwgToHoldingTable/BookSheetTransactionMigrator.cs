@@ -53,16 +53,16 @@ namespace BookSheetMigration
 
         private void setDealerIds(AWGTransactionDTO t)
         {
-            var transactionSellerDealerIdMatcher = new TransactionSellerDealerIdMatcher(t);
-            transactionSellerDealerIdMatcher.matchAndInsertIds();
-            var transactionBuyerDealerIdMatcher = new TransactionBuyerDealerIdMatcher(t);
-            transactionBuyerDealerIdMatcher.matchAndInsertIds();
+            var sellerDealerIdInserter = new SellerDealerIdInserter(t);
+            sellerDealerIdInserter.insertIdIfFound();
+            var buyerDealerIdInserter = new BuyerDealerIdInserter(t);
+            buyerDealerIdInserter.insertIdIfFound();
         }
 
         private void setContactIds(AWGTransactionDTO t)
         {
-            var transactionBuyerContactIdMatcher = new TransactionBuyerContactIdMatcher(t);
-            transactionBuyerContactIdMatcher.matchAndInsertIds();
+            var buyerContactIdInserter = new BuyerContactIdInserter(t);
+            buyerContactIdInserter.insertIdIfFound();
         }
 
         private EntityDAO<AWGEventDTO> createEventDao()

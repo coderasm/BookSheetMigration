@@ -27,9 +27,11 @@ namespace BookSheetMigration
         [Column("BidAmount")]
         public decimal bidAmount { get; set; }
 
-        [XmlIgnore]
         [Column("SoldDate")]
         public DateTime soldDate { get; set; }
+
+        [Ignore]
+        public List<DealerDTO> sellers { get; set; }
 
         [XmlElement("SellerNumber")]
         [Column("SellerDmvNumber")]
@@ -37,9 +39,6 @@ namespace BookSheetMigration
 
         [Column("SellerDealerId")]
         public string sellerDealerId { get; set; }
-
-        [Ignore]
-        public List<DealerDTO> sellers { get; set; }
 
         [XmlElement("SellerDealerName")]
         [Column("SellerCompanyName")]
@@ -85,6 +84,9 @@ namespace BookSheetMigration
             }
         }
 
+        [Ignore]
+        public List<DealerDTO> buyers { get; set; }
+
         [XmlElement("BuyerNumber")]
         [Column("BuyerDmvNumber")]
         public string buyerNumber { get; set; }
@@ -92,14 +94,8 @@ namespace BookSheetMigration
         [Column("BuyerDealerId")]
         public string buyerDealerId { get; set; }
 
-        [Ignore]
-        public List<DealerDTO> buyers { get; set; }
-
         [Column("BuyerContactId")]
         public string buyerContactId { get; set; }
-
-        [Ignore]
-        public List<DealerContactDTO> buyerContacts { get; set; }
 
         [XmlElement("BuyerDealerName")]
         [Column("BuyerCompanyName")]

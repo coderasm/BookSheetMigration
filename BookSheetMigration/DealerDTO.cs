@@ -1,4 +1,5 @@
-﻿using AsyncPoco;
+﻿using System.Collections.Generic;
+using AsyncPoco;
 
 namespace BookSheetMigration
 {
@@ -9,5 +10,8 @@ namespace BookSheetMigration
 
         [Column("COMPANY")]
         public string companyName { get; set; }
+
+        [Ignore]
+        public List<DealerContactDTO> contacts { get; set; }
     }
 }

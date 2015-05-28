@@ -13,8 +13,8 @@ namespace BookSheetMigration.Test
         public void WhenSingleDealerMatched_ThenSaveItsInformation()
         {
             AWGTransactionDTO transaction = new AWGTransactionDTO();
-            TransactionSellerDealerIdMatcher transactionSellerDealerIdMatcher = new TransactionSellerDealerIdMatcher(transaction);
-            transactionSellerDealerIdMatcher.matchAndInsertIds();
+            SellerDealerIdInserter sellerDealerIdInserter = new SellerDealerIdInserter(transaction);
+            sellerDealerIdInserter.insertIdIfFound();
         }
     }
 }
