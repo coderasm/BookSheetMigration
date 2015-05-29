@@ -58,7 +58,7 @@
     <Compile Include="AwgToHoldingTable\AWGServiceClient.cs" />
     <Compile Include="AwgToHoldingTable\AWGSoapRequestMessageBuilder.cs" />
     <Compile Include="AwgToHoldingTable\AWGTransactionDirectory.cs" />
-    <Compile Include="AwgToHoldingTable\AWGTransactionDTO.cs" />
+    <Compile Include="AWGTransactionDTO.cs" />
     <Compile Include="AwgToHoldingTable\BookSheetTransactionMigrator.cs" />
     <Compile Include="AwgToHoldingTable\BuyerContactIdInserter.cs" />
     <Compile Include="HoldingTableToWebInterface\BuyerContactsInserter.cs" />

@@ -35,7 +35,7 @@ namespace BookSheetMigration
 
         [XmlElement("SellerNumber")]
         [Column("SellerDmvNumber")]
-        public string sellerNumber { get; set; }
+        public string sellerDmvNumber { get; set; }
 
         [Column("SellerDealerId")]
         public string sellerDealerId { get; set; }
@@ -89,7 +89,7 @@ namespace BookSheetMigration
 
         [XmlElement("BuyerNumber")]
         [Column("BuyerDmvNumber")]
-        public string buyerNumber { get; set; }
+        public string buyerDmvNumber { get; set; }
 
         [Column("BuyerDealerId")]
         public string buyerDealerId { get; set; }

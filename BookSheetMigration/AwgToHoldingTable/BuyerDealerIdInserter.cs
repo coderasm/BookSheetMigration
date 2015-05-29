@@ -13,12 +13,12 @@ namespace BookSheetMigration
 
         protected override bool entityNumberExists()
         {
-            return transaction.buyerNumber != "";
+            return transaction.buyerDmvNumber != "";
         }
 
         protected override string getEntityNumber()
         {
-            return transaction.buyerNumber;
+            return transaction.buyerDmvNumber;
         }
 
         protected override async Task<List<DealerDTO>> findEntities(string entityNumber)
