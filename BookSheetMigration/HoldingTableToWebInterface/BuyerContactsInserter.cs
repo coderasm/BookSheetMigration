@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BookSheetMigration
 {
-    class BuyerContactsInserter : ContactCollectionInserter
+    public class BuyerContactsInserter : ContactCollectionInserter
     {
         public BuyerContactsInserter(DealerDTO buyer)
         {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BookSheetMigration
 {
-    abstract class ContactCollectionInserter
+    public abstract class ContactCollectionInserter
     {
         protected DealerDTO dealer;
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BookSheetMigration
 {
-    class SellerDealersInserter : CollectionInserter<DealerDTO>
+    public class SellerDealersInserter : CollectionInserter<DealerDTO>
     {
         public SellerDealersInserter(AWGTransactionDTO transaction)
         {

@@ -13,7 +13,7 @@ namespace BookSheetMigration
 
         protected override bool entityNumberExists()
         {
-            return transaction.buyerDealerId != "";
+            return transaction.buyerDealerId != null;
         }
 
         protected override string getEntityNumber()

@@ -75,6 +75,7 @@
     <Compile Include="AWGEventMigratorTest.cs" />
     <Compile Include="AWGTransactionMigratorTest.cs" />
     <Compile Include="TransactionUpdaterTest.cs" />
+    <Compile Include="DealersFinderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookSheetMigration\BookSheetMigration.csproj">

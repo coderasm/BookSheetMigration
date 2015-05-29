@@ -13,9 +13,19 @@ namespace BookSheetMigration
             databaseConnection = DatabaseFactory.makeDatabase();
         }
 
+        public async Task<List<T>> select(Sql sql)
+        {
+            return await databaseConnection.FetchAsync<T>(sql);
+        }
+
         public async Task<List<T>> select(string sql)
         {
             return await databaseConnection.FetchAsync<T>(sql);
+        }
+
+        public async Task<List<T>> select(string sql, params object[] sqlparams)
+        {
+            return await databaseConnection.FetchAsync<T>(sql, sqlparams);
         }
 
         public async Task<int> update(T entity)
