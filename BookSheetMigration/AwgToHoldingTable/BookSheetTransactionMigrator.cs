@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AsyncPoco;
 using BookSheetMigration.AwgToHoldingTable;
 
 namespace BookSheetMigration
@@ -54,24 +53,51 @@ namespace BookSheetMigration
 
         private void setDealerIds(AWGTransactionDTO t)
         {
-            var sellerDealerIdInserter = new SellerDealerIdInserterByDmvNumber(t);
-            if (!insertedDealerFromDmvNumber(sellerDealerIdInserter))
-            {
-                insertDealerUsingPhoneNumber(t);
-            }
-            var buyerDealerIdInserter = new BuyerDealerIdInserterByDmvNumber(t);
-            buyerDealerIdInserter.insertIdIfFound();
+            setSellerId(t);
+            setBuyerId(t);
         }
 
-        private bool insertedDealerFromDmvNumber(SellerDealerIdInserterByDmvNumber sellerDealerIdInserter)
+
+
+        private void setSellerId(AWGTransactionDTO t)
+        {
+            IdInserter<DealerDTO> sellerDealerIdInserter = new SellerDealerIdInserterByDmvNumber(t);
+            if (insertedDealerUsingDmvNumber(sellerDealerIdInserter))
+                return;
+            sellerDealerIdInserter = new SellerDealerIdInserterByPhoneNumber(t);
+            if (insertedDealerUsingPhoneNumber(sellerDealerIdInserter))
+                return;
+            sellerDealerIdInserter = new SellerDealerIdInserterByAddressAndCity(t);
+            if (insertedDealerUsingAddressAndCity(sellerDealerIdInserter))
+                return;
+        }
+
+        private void setBuyerId(AWGTransactionDTO t)
+        {
+            IdInserter<DealerDTO> buyerDealerIdInserter = new BuyerDealerIdInserterByDmvNumber(t);
+            if (insertedDealerUsingDmvNumber(buyerDealerIdInserter))
+                return;
+            buyerDealerIdInserter = new BuyerDealerIdInserterByPhoneNumber(t);
+            if (insertedDealerUsingPhoneNumber(buyerDealerIdInserter))
+                return;
+            buyerDealerIdInserter = new BuyerDealerIdInserterByAddressAndCity(t);
+            if (insertedDealerUsingAddressAndCity(buyerDealerIdInserter))
+                return;
+        }
+
+        private bool insertedDealerUsingDmvNumber(IdInserter<DealerDTO> dealerIdInserter)
+        {
+            return dealerIdInserter.insertIdIfFound();
+        }
+
+        private bool insertedDealerUsingPhoneNumber(IdInserter<DealerDTO> dealerIdInserter)
+        {
+            return dealerIdInserter.insertIdIfFound();
+        }
+
+        private bool insertedDealerUsingAddressAndCity(IdInserter<DealerDTO> sellerDealerIdInserter)
         {
             return sellerDealerIdInserter.insertIdIfFound();
-        }
-
-        private void insertDealerUsingPhoneNumber(AWGTransactionDTO t)
-        {
-            var sellerDealerIdInserter = new SellerDealerIdInserterByPhoneNumber(t);
-            sellerDealerIdInserter.insertIdIfFound();
         }
 
         private void setContactIds(AWGTransactionDTO t)

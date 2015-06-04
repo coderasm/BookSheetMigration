@@ -12,19 +12,22 @@ namespace BookSheetMigration
             this.transaction = transaction;
         }
 
-        protected override bool entityNumberExists()
+        protected override bool entityArgumentsExist()
         {
-            return transaction.sellerDmvNumber != "";
+            return transaction.sellerDmvNumber != null;
         }
 
-        protected override string getEntityNumber()
+        protected override object[] getEntityArguments()
         {
-            return transaction.sellerDmvNumber;
+            return new object[]
+            {
+                transaction.sellerDmvNumber
+            };
         }
 
-        protected override async Task<List<DealerDTO>> findEntities(string entityNumber)
+        protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
-            var entitiesFinder = new DealersFinderByDmvNumber(entityNumber);
+            var entitiesFinder = new DealersFinderByDmvNumber((string)entityArguments[0]);
             return await entitiesFinder.find();
         }
 

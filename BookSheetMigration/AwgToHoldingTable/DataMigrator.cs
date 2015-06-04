@@ -1,5 +1,4 @@
-﻿using AsyncPoco;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BookSheetMigration

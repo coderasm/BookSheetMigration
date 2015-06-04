@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BookSheetMigration
@@ -11,19 +10,22 @@ namespace BookSheetMigration
             this.transaction = transaction;
         }
 
-        protected override bool entityNumberExists()
+        protected override bool entityArgumentsExist()
         {
             return transaction.buyerDealerId != null;
         }
 
-        protected override string getEntityNumber()
+        protected override object[] getEntityArguments()
         {
-            return transaction.buyerDealerId;
+            return new object[]
+            {
+                transaction.buyerDealerId
+            };
         }
 
-        protected override async Task<List<DealerContactDTO>> findEntities(string entityNumber)
+        protected override async Task<List<DealerContactDTO>> findEntities(params object[] entityArguments)
         {
-            var entitiesFinder = new DealerContactsFinder(entityNumber);
+            var entitiesFinder = new DealerContactsFinder((string)entityArguments[0]);
             return await entitiesFinder.find();
         }
 

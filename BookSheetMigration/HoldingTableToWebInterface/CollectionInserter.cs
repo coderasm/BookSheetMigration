@@ -9,26 +9,26 @@ namespace BookSheetMigration
 
         public void insertCollectionIfFound()
         {
-            if (entityNumberExists())
+            if (entityArguemntsExist())
             {
-                var entityNumber = getEntityNumber();
-                insertCollectionIfAtLeastOneEntryFound(entityNumber);
+                var entityArguments = getEntityArguments();
+                insertCollectionIfAtLeastOneEntryFound(entityArguments);
             }
         }
 
-        protected abstract bool entityNumberExists();
+        protected abstract bool entityArguemntsExist();
 
-        protected abstract string getEntityNumber();
+        protected abstract object[] getEntityArguments();
 
-        private void insertCollectionIfAtLeastOneEntryFound(string entityNumber)
+        private void insertCollectionIfAtLeastOneEntryFound(params object[] entityArguments)
         {
-            var possibleCollectionOfEntities = findEntities(entityNumber).Result;
+            var possibleCollectionOfEntities = findEntities(entityArguments).Result;
             if (foundAtLeastOneEntityIn(possibleCollectionOfEntities))
                 setPossibleCollection(possibleCollectionOfEntities);
 
         }
 
-        protected abstract Task<List<T>> findEntities(string entityNumber);
+        protected abstract Task<List<T>> findEntities(params object[] entityArguments);
 
         private bool foundAtLeastOneEntityIn(List<T> items)
         {

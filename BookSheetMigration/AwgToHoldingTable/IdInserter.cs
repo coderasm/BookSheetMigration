@@ -9,21 +9,21 @@ namespace BookSheetMigration
 
         public bool insertIdIfFound()
         {
-            if (entityNumberExists())
+            if (entityArgumentsExist())
             {
-                var entityNumber = getEntityNumber();
-                return insertIdIfAtLeastOneFound(entityNumber);
+                var entityArguments = getEntityArguments();
+                return insertIdIfAtLeastOneFound(entityArguments);
             }
             return false;
         }
 
-        protected abstract bool entityNumberExists();
+        protected abstract bool entityArgumentsExist();
 
-        protected abstract string getEntityNumber();
+        protected abstract object[] getEntityArguments();
 
-        private bool insertIdIfAtLeastOneFound(string entityNumber)
+        private bool insertIdIfAtLeastOneFound(params object[] entityArguments)
         {
-            var possibleEntities = findEntities(entityNumber).Result;
+            var possibleEntities = findEntities(entityArguments).Result;
             if (foundAtLeastOneEntityIn(possibleEntities))
             {
                 setPossibleEntityId(possibleEntities[0]);
@@ -32,7 +32,7 @@ namespace BookSheetMigration
             return false;
         }
 
-        protected abstract Task<List<T>> findEntities(string entityNumber);
+        protected abstract Task<List<T>> findEntities(params object[] entityArguments);
 
         private bool foundAtLeastOneEntityIn(List<T> items)
         {

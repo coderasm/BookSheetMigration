@@ -8,7 +8,7 @@ namespace BookSheetMigration
     {
         public BuyerContactsInserter(DealerDTO buyer)
         {
-            this.dealer = buyer;
+            dealer = buyer;
         }
 
         protected override string getEntityNumber()

@@ -10,19 +10,22 @@ namespace BookSheetMigration.AwgToHoldingTable
             this.transaction = transaction;
         }
 
-        protected override bool entityNumberExists()
+        protected override bool entityArgumentsExist()
         {
             return transaction.buyerPhone != "";
         }
 
-        protected override string getEntityNumber()
+        protected override object[] getEntityArguments()
         {
-            return transaction.buyerPhone;
+            return new object[]
+            {
+                transaction.buyerPhone
+            };
         }
 
-        protected override async Task<List<DealerDTO>> findEntities(string entityNumber)
+        protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
-            var entitiesFinder = new DealersFinderByPhoneNumber(entityNumber);
+            var entitiesFinder = new DealersFinderByPhoneNumber((string)entityArguments[0]);
             return await entitiesFinder.find();
         }
 
