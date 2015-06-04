@@ -1,12 +1,13 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BookSheetMigration.AwgToHoldingTable;
 
 namespace BookSheetMigration
 {
-    public class BuyerDealersInserter : CollectionInserter<DealerDTO>
+    public class BuyerDealerIdInserterByDmvNumber : IdInserter<DealerDTO>
     {
-        public BuyerDealersInserter(AWGTransactionDTO transaction)
+
+        public BuyerDealerIdInserterByDmvNumber(AWGTransactionDTO transaction)
         {
             this.transaction = transaction;
         }
@@ -23,13 +24,13 @@ namespace BookSheetMigration
 
         protected override async Task<List<DealerDTO>> findEntities(string entityNumber)
         {
-            var entitiesFinder = new DealersFinder(entityNumber);
+            var entitiesFinder = new DealersFinderByDmvNumber(entityNumber);
             return await entitiesFinder.find();
         }
 
-        protected override void setPossibleCollection(List<DealerDTO> entity)
+        protected override void setPossibleEntityId(DealerDTO entity)
         {
-            transaction.buyers = entity;
+            transaction.buyerDealerId = entity.dealerId;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AsyncPoco;
+using BookSheetMigration.AwgToHoldingTable;
 
 namespace BookSheetMigration
 {
@@ -53,10 +54,24 @@ namespace BookSheetMigration
 
         private void setDealerIds(AWGTransactionDTO t)
         {
-            var sellerDealerIdInserter = new SellerDealerIdInserter(t);
-            sellerDealerIdInserter.insertIdIfFound();
-            var buyerDealerIdInserter = new BuyerDealerIdInserter(t);
+            var sellerDealerIdInserter = new SellerDealerIdInserterByDmvNumber(t);
+            if (!insertedDealerFromDmvNumber(sellerDealerIdInserter))
+            {
+                insertDealerUsingPhoneNumber(t);
+            }
+            var buyerDealerIdInserter = new BuyerDealerIdInserterByDmvNumber(t);
             buyerDealerIdInserter.insertIdIfFound();
+        }
+
+        private bool insertedDealerFromDmvNumber(SellerDealerIdInserterByDmvNumber sellerDealerIdInserter)
+        {
+            return sellerDealerIdInserter.insertIdIfFound();
+        }
+
+        private void insertDealerUsingPhoneNumber(AWGTransactionDTO t)
+        {
+            var sellerDealerIdInserter = new SellerDealerIdInserterByPhoneNumber(t);
+            sellerDealerIdInserter.insertIdIfFound();
         }
 
         private void setContactIds(AWGTransactionDTO t)

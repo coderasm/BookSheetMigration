@@ -1,35 +1,34 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BookSheetMigration
+namespace BookSheetMigration.AwgToHoldingTable
 {
-    public class SellerDealerIdInserter : IdInserter<DealerDTO>
+    public class BuyerDealerIdInserterByPhoneNumber : IdInserter<DealerDTO>
     {
-        public SellerDealerIdInserter(AWGTransactionDTO transaction)
+         public BuyerDealerIdInserterByPhoneNumber(AWGTransactionDTO transaction)
         {
             this.transaction = transaction;
         }
 
         protected override bool entityNumberExists()
         {
-            return transaction.sellerDmvNumber != "";
+            return transaction.buyerPhone != "";
         }
 
         protected override string getEntityNumber()
         {
-            return transaction.sellerDmvNumber;
+            return transaction.buyerPhone;
         }
 
         protected override async Task<List<DealerDTO>> findEntities(string entityNumber)
         {
-            var entitiesFinder = new DealersFinder(entityNumber);
+            var entitiesFinder = new DealersFinderByPhoneNumber(entityNumber);
             return await entitiesFinder.find();
         }
 
         protected override void setPossibleEntityId(DealerDTO entity)
         {
-            transaction.sellerDealerId = entity.dealerId;
+            transaction.buyerDealerId = entity.dealerId;
         }
     }
 }

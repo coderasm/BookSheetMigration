@@ -1,16 +1,15 @@
-﻿
-namespace BookSheetMigration
+﻿namespace BookSheetMigration
 {
     public class DealersFinder : EntitiesFinder<DealerDTO>
     {
-        private const string dealerQuery = @"SELECT DISTINCT c.ACCOUNTNO, COMPANY
+        protected const string dealerQuery = @"SELECT DISTINCT c.ACCOUNTNO, COMPANY
                                              FROM ABSContact..CONTACT2 c
                                              JOIN ABSContact..CONTACT1 c1 ON c1.ACCOUNTNO = c.ACCOUNTNO
-                                             WHERE dbo.whoami(c.ACCOUNTNO) NOT LIKE '%-%' AND c.UDMVNUM LIKE '%{0}%' AND c.UDEALERCA1 = 'Active'";
+                                             WHERE c1.COMPANY NOT LIKE '%- old%' AND c1.COMPANY NOT LIKE '%- dup%'";
 
-        public DealersFinder(string id) : base(id)
+        public DealersFinder(string key, string queryPartForKey) : base(key)
         {
-            this.query = dealerQuery;
+            this.query = dealerQuery + queryPartForKey;
         }
     }
 }
