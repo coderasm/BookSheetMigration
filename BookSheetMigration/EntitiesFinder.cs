@@ -15,7 +15,7 @@ namespace BookSheetMigration
 
         protected static string returnEscapedArgument(string parameter)
         {
-            return parameter.Replace("@", "@@");
+            return parameter.Replace("@", "@@").Replace("'", "''");
         }
 
         protected static string returnFilledQueryPart(string queryPart, params object[] arguments)

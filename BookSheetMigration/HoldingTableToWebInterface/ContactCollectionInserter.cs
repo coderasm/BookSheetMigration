@@ -9,9 +9,14 @@ namespace BookSheetMigration
 
         public void insertCollectionIfFound()
         {
-            var entityNumber = getEntityNumber();
-            insertCollectionIfAtLeastOneEntryFound(entityNumber);
+            if (entityArgumentsExist())
+            {
+                var entityNumber = getEntityNumber();
+                insertCollectionIfAtLeastOneEntryFound(entityNumber);
+            }
         }
+
+        protected abstract bool entityArgumentsExist();
 
         protected abstract string getEntityNumber();
 

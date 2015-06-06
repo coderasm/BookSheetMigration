@@ -95,9 +95,9 @@ namespace BookSheetMigration
             return dealerIdInserter.insertIdIfFound();
         }
 
-        private bool insertedDealerUsingAddressAndCity(IdInserter<DealerDTO> sellerDealerIdInserter)
+        private bool insertedDealerUsingAddressAndCity(IdInserter<DealerDTO> dealerIdInserter)
         {
-            return sellerDealerIdInserter.insertIdIfFound();
+            return dealerIdInserter.insertIdIfFound();
         }
 
         private void setContactIds(AWGTransactionDTO t)

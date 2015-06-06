@@ -14,7 +14,7 @@ namespace BookSheetMigration
 
         protected override bool entityArgumentsExist()
         {
-            return transaction.buyerDmvNumber != null;
+            return !string.IsNullOrEmpty(transaction.buyerDmvNumber);
         }
 
         protected override object[] getEntityArguments()

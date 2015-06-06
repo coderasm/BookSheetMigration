@@ -7,25 +7,29 @@ namespace BookSheetMigration
     {
         protected AWGTransactionDTO transaction;
 
-        public void insertCollectionIfFound()
+        public bool insertCollectionIfFound()
         {
-            if (entityArguemntsExist())
+            if (entityArgumentsExist())
             {
                 var entityArguments = getEntityArguments();
-                insertCollectionIfAtLeastOneEntryFound(entityArguments);
+                return insertCollectionIfAtLeastOneEntryFound(entityArguments);
             }
+            return false;
         }
 
-        protected abstract bool entityArguemntsExist();
+        protected abstract bool entityArgumentsExist();
 
         protected abstract object[] getEntityArguments();
 
-        private void insertCollectionIfAtLeastOneEntryFound(params object[] entityArguments)
+        private bool insertCollectionIfAtLeastOneEntryFound(params object[] entityArguments)
         {
             var possibleCollectionOfEntities = findEntities(entityArguments).Result;
             if (foundAtLeastOneEntityIn(possibleCollectionOfEntities))
+            {
                 setPossibleCollection(possibleCollectionOfEntities);
-
+                return true;
+            }
+            return false;
         }
 
         protected abstract Task<List<T>> findEntities(params object[] entityArguments);

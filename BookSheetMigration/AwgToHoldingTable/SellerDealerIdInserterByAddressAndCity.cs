@@ -12,7 +12,7 @@ namespace BookSheetMigration.AwgToHoldingTable
 
         protected override bool entityArgumentsExist()
         {
-            return transaction.sellerAddress != null && transaction.sellerCity != null;
+            return !string.IsNullOrEmpty(transaction.sellerAddress) && !string.IsNullOrEmpty(transaction.sellerCity);
         }
 
         protected override object[] getEntityArguments()
@@ -32,7 +32,7 @@ namespace BookSheetMigration.AwgToHoldingTable
 
         protected override void setPossibleEntityId(DealerDTO entity)
         {
-            transaction.buyerDealerId = entity.dealerId;
+            transaction.sellerDealerId = entity.dealerId;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace BookSheetMigration.AwgToHoldingTable
 
         protected override bool entityArgumentsExist()
         {
-            return transaction.buyerPhone != "";
+            return !string.IsNullOrEmpty(transaction.buyerPhone);
         }
 
         protected override object[] getEntityArguments()

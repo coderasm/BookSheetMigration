@@ -5,16 +5,16 @@ using BookSheetMigration.AwgToHoldingTable;
 
 namespace BookSheetMigration.HoldingTableToWebInterface
 {
-    class BuyerDealersInserterByPhoneNumber : CollectionInserter<DealerDTO>
+    public class BuyerDealersInserterByPhoneNumber : CollectionInserter<DealerDTO>
     {
         public BuyerDealersInserterByPhoneNumber(AWGTransactionDTO transaction)
         {
             this.transaction = transaction;
         }
 
-        protected override bool entityArguemntsExist()
+        protected override bool entityArgumentsExist()
         {
-            return transaction.buyerPhone != "";
+            return !string.IsNullOrEmpty(transaction.buyerPhone);
         }
 
         protected override object[] getEntityArguments()

@@ -12,7 +12,7 @@ namespace BookSheetMigration.AwgToHoldingTable
 
         protected override bool entityArgumentsExist()
         {
-            return transaction.sellerPhone != "";
+            return !string.IsNullOrEmpty(transaction.sellerPhone);
         }
 
         protected override object[] getEntityArguments()
@@ -31,7 +31,7 @@ namespace BookSheetMigration.AwgToHoldingTable
 
         protected override void setPossibleEntityId(DealerDTO entity)
         {
-            transaction.buyerDealerId = entity.dealerId;
+            transaction.sellerDealerId = entity.dealerId;
         }
     }
 }

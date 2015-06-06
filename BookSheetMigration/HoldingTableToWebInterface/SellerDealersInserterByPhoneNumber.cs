@@ -4,16 +4,16 @@ using BookSheetMigration.AwgToHoldingTable;
 
 namespace BookSheetMigration.HoldingTableToWebInterface
 {
-    class SellerDealersInserterByPhoneNumber : CollectionInserter<DealerDTO>
+    public class SellerDealersInserterByPhoneNumber : CollectionInserter<DealerDTO>
     {
         public SellerDealersInserterByPhoneNumber(AWGTransactionDTO transaction)
         {
             this.transaction = transaction;
         }
 
-        protected override bool entityArguemntsExist()
+        protected override bool entityArgumentsExist()
         {
-            return transaction.sellerPhone != "";
+            return !string.IsNullOrEmpty(transaction.sellerPhone);
         }
 
         protected override object[] getEntityArguments()
@@ -32,7 +32,7 @@ namespace BookSheetMigration.HoldingTableToWebInterface
 
         protected override void setPossibleCollection(List<DealerDTO> entity)
         {
-            transaction.buyers = entity;
+            transaction.sellers = entity;
         }
     }
 }

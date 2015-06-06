@@ -12,7 +12,7 @@ namespace BookSheetMigration.AwgToHoldingTable
 
         protected override bool entityArgumentsExist()
         {
-            return transaction.buyerAddress != null && transaction.buyerCity != null;
+            return !string.IsNullOrEmpty(transaction.buyerAddress) && !string.IsNullOrEmpty(transaction.buyerCity);
         }
 
         protected override object[] getEntityArguments()

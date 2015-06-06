@@ -11,6 +11,11 @@ namespace BookSheetMigration
             dealer = buyer;
         }
 
+        protected override bool entityArgumentsExist()
+        {
+            return dealer.dealerId != null;
+        }
+
         protected override string getEntityNumber()
         {
             return dealer.dealerId;

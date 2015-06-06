@@ -3,16 +3,16 @@ using System.Threading.Tasks;
 
 namespace BookSheetMigration.HoldingTableToWebInterface
 {
-    class BuyerDealersInserterByAddressAndCity : CollectionInserter<DealerDTO>
+    public class BuyerDealersInserterByAddressAndCity : CollectionInserter<DealerDTO>
     {
         public BuyerDealersInserterByAddressAndCity(AWGTransactionDTO transaction)
         {
             this.transaction = transaction;
         }
 
-        protected override bool entityArguemntsExist()
+        protected override bool entityArgumentsExist()
         {
-            return transaction.buyerAddress != null && transaction.buyerCity != null;
+            return !string.IsNullOrEmpty(transaction.buyerAddress) && !string.IsNullOrEmpty(transaction.buyerCity);
         }
 
         protected override object[] getEntityArguments()

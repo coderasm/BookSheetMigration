@@ -3,16 +3,16 @@ using System.Threading.Tasks;
 
 namespace BookSheetMigration.HoldingTableToWebInterface
 {
-    class SellerDealersInserterByAddressAndCity : CollectionInserter<DealerDTO>
+    public class SellerDealersInserterByAddressAndCity : CollectionInserter<DealerDTO>
     {
         public SellerDealersInserterByAddressAndCity(AWGTransactionDTO transaction)
         {
             this.transaction = transaction;
         }
 
-        protected override bool entityArguemntsExist()
+        protected override bool entityArgumentsExist()
         {
-            return transaction.sellerAddress != null && transaction.sellerCity != null;
+            return !string.IsNullOrEmpty(transaction.sellerAddress) && !string.IsNullOrEmpty(transaction.sellerCity);
         }
 
         protected override object[] getEntityArguments()
@@ -32,7 +32,7 @@ namespace BookSheetMigration.HoldingTableToWebInterface
 
         protected override void setPossibleCollection(List<DealerDTO> entity)
         {
-            transaction.buyers = entity;
+            transaction.sellers = entity;
         }
     }
 }
