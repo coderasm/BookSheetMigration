@@ -22,6 +22,15 @@ namespace BookSheetMigration.AwgToHoldingTable
                 transaction.buyerPhone
             };
         }
+        protected override string getNameInTransaction()
+        {
+            return transaction.buyerCompanyName;
+        }
+
+        protected override string getEntityName(DealerDTO dealer)
+        {
+            return dealer.companyName;
+        }
 
         protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
@@ -29,7 +38,7 @@ namespace BookSheetMigration.AwgToHoldingTable
             return await entitiesFinder.find();
         }
 
-        protected override void setPossibleEntityId(DealerDTO entity)
+        protected override void setIdFromFirstFoundEntity(DealerDTO entity)
         {
             transaction.buyerDealerId = entity.dealerId;
         }

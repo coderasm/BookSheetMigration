@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BookSheetMigration
@@ -26,10 +27,43 @@ namespace BookSheetMigration
             var possibleEntities = findEntities(entityArguments).Result;
             if (foundAtLeastOneEntityIn(possibleEntities))
             {
-                setPossibleEntityId(possibleEntities[0]);
+                if (foundMorethanOneEntityIn(possibleEntities))
+                    if(ableToSetPossibleEntityByName(possibleEntities))
+                        return true;
+                setIdFromFirstFoundEntity(possibleEntities[0]);
                 return true;
             }
             return false;
+        }
+
+        private bool ableToSetPossibleEntityByName(List<T> possibleEntities)
+        {
+            var nameIntransaction = removePunctuationAndToLower(getNameInTransaction());
+            foreach (var possibleEntity in possibleEntities)
+            {
+                var foundName = getEntityName(possibleEntity);
+                if (foundName != null)
+                {
+                    var cleanFoundName = removePunctuationAndToLower(foundName);
+                    if (cleanFoundName.Equals(nameIntransaction))
+                    {
+                        setIdFromFirstFoundEntity(possibleEntity);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        protected abstract string getNameInTransaction();
+
+        protected abstract string getEntityName(T entity);
+
+        private static string removePunctuationAndToLower(string name)
+        {
+            name = Regex.Replace(name, "[^\\w\\s]", "");
+            name = name.ToLower().Trim();
+            return name;
         }
 
         protected abstract Task<List<T>> findEntities(params object[] entityArguments);
@@ -39,6 +73,11 @@ namespace BookSheetMigration
             return items.Count > 0;
         }
 
-        protected abstract void setPossibleEntityId(T entity);
+        private bool foundMorethanOneEntityIn(List<T> possibleEntities)
+        {
+            return possibleEntities.Count > 1;
+        }
+
+        protected abstract void setIdFromFirstFoundEntity(T entity);
     }
 }

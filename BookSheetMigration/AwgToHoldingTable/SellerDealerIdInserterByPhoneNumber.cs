@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BookSheetMigration.AwgToHoldingTable
 {
-    class SellerDealerIdInserterByPhoneNumber : IdInserter<DealerDTO>
+    public class SellerDealerIdInserterByPhoneNumber : IdInserter<DealerDTO>
     {
          public SellerDealerIdInserterByPhoneNumber(AWGTransactionDTO transaction)
         {
@@ -23,13 +23,23 @@ namespace BookSheetMigration.AwgToHoldingTable
             };
         }
 
+        protected override string getNameInTransaction()
+        {
+            return transaction.sellerCompanyName;
+        }
+
+        protected override string getEntityName(DealerDTO dealer)
+        {
+            return dealer.companyName;
+        }
+
         protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
             var entitiesFinder = new DealersFinderByPhoneNumber((string)entityArguments[0]);
             return await entitiesFinder.find();
         }
 
-        protected override void setPossibleEntityId(DealerDTO entity)
+        protected override void setIdFromFirstFoundEntity(DealerDTO entity)
         {
             transaction.sellerDealerId = entity.dealerId;
         }

@@ -24,13 +24,23 @@ namespace BookSheetMigration.AwgToHoldingTable
             };
         }
 
+        protected override string getNameInTransaction()
+        {
+            return transaction.buyerCompanyName;
+        }
+
+        protected override string getEntityName(DealerDTO dealer)
+        {
+            return dealer.companyName;
+        }
+
         protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
             var entitiesFinder = new DealersFinderByAddressAndCity((string)entityArguments[0], (string)entityArguments[1]);
             return await entitiesFinder.find();
         }
 
-        protected override void setPossibleEntityId(DealerDTO entity)
+        protected override void setIdFromFirstFoundEntity(DealerDTO entity)
         {
             transaction.buyerDealerId = entity.dealerId;
         }

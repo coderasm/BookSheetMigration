@@ -23,13 +23,23 @@ namespace BookSheetMigration
             };
         }
 
+        protected override string getNameInTransaction()
+        {
+            return transaction.buyerFirstName + " " + transaction.buyerLastName;
+        }
+
+        protected override string getEntityName(DealerContactDTO contact)
+        {
+            return contact.name;
+        }
+
         protected override async Task<List<DealerContactDTO>> findEntities(params object[] entityArguments)
         {
             var entitiesFinder = new DealerContactsFinder((string)entityArguments[0]);
             return await entitiesFinder.find();
         }
 
-        protected override void setPossibleEntityId(DealerContactDTO entity)
+        protected override void setIdFromFirstFoundEntity(DealerContactDTO entity)
         {
             transaction.buyerContactId = entity.contactId;
         }
