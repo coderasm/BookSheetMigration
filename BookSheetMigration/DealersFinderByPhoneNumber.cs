@@ -3,11 +3,9 @@
     class DealersFinderByPhoneNumber : DealersFinder
     {
         private const string queryPart = " AND c1.PHONE1 LIKE '%{0}%'";
-        private static string parameterizedPhoneNumber = "";
 
-        public DealersFinderByPhoneNumber(string phoneNumber) : base(returnFilledQueryPart(queryPart, parameterizedPhoneNumber))
+        public DealersFinderByPhoneNumber(string phoneNumber) : base(returnFilledQueryPart(queryPart, createParameterizedPhoneNumber(phoneNumber)))
         {
-            parameterizedPhoneNumber = createParameterizedPhoneNumber(phoneNumber);
         }
 
         private static string createParameterizedPhoneNumber(string phoneNumber)

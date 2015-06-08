@@ -26,6 +26,16 @@ namespace BookSheetMigration
             var possibleCollectionOfEntities = findEntities(entityArguments).Result;
             if (foundAtLeastOneEntityIn(possibleCollectionOfEntities))
             {
+                if (foundMorethanOneEntityIn(possibleCollectionOfEntities))
+                {
+                    setPossibleCollection(possibleCollectionOfEntities);
+                    return true;
+                }
+                if (insertingBuyersCollection())
+                {
+                    if (!hasAtLeastOneContact(possibleCollectionOfEntities))
+                        return false;
+                }
                 setPossibleCollection(possibleCollectionOfEntities);
                 return true;
             }
@@ -39,6 +49,15 @@ namespace BookSheetMigration
             return items.Count > 0;
         }
 
+        private bool foundMorethanOneEntityIn(List<T> possibleCollectionOfEntities)
+        {
+            return possibleCollectionOfEntities.Count > 1;
+        }
+
         protected abstract void setPossibleCollection(List<T> entity);
+
+        protected abstract bool insertingBuyersCollection();
+
+        protected abstract bool hasAtLeastOneContact(List<T> possibleCollectionOfEntities);
     }
 }

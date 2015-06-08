@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookSheetMigration.AwgToHoldingTable;
 
@@ -34,6 +33,17 @@ namespace BookSheetMigration.HoldingTableToWebInterface
         protected override void setPossibleCollection(List<DealerDTO> entity)
         {
             transaction.buyers = entity;
+        }
+
+        protected override bool insertingBuyersCollection()
+        {
+            return true;
+        }
+
+        protected override bool hasAtLeastOneContact(List<DealerDTO> possibleCollectionOfEntities)
+        {
+            var contactFinder = new DealerContactsFinder(possibleCollectionOfEntities[0].dealerId);
+            return contactFinder.find().Result.Count > 0;
         }
     }
 }

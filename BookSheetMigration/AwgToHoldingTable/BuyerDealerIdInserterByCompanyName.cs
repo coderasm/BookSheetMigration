@@ -3,24 +3,23 @@ using System.Threading.Tasks;
 
 namespace BookSheetMigration.AwgToHoldingTable
 {
-    class BuyerDealerIdInserterByAddressAndCity : IdInserter<DealerDTO>
+    public class BuyerDealerIdInserterByCompanyName : IdInserter<DealerDTO>
     {
-        public BuyerDealerIdInserterByAddressAndCity(AWGTransactionDTO transaction)
+        public BuyerDealerIdInserterByCompanyName(AWGTransactionDTO transaction)
         {
             this.transaction = transaction;
         }
 
         protected override bool entityArgumentsExist()
         {
-            return !string.IsNullOrEmpty(transaction.buyerAddress) && !string.IsNullOrEmpty(transaction.buyerCity);
+            return !string.IsNullOrEmpty(transaction.buyerCompanyName);
         }
 
         protected override object[] getEntityArguments()
         {
             return new object[]
             {
-                transaction.buyerAddress,
-                transaction.buyerCity
+                transaction.buyerCompanyName
             };
         }
 
@@ -47,7 +46,7 @@ namespace BookSheetMigration.AwgToHoldingTable
 
         protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
-            var entitiesFinder = new DealersFinderByAddressAndCity((string)entityArguments[0], (string)entityArguments[1]);
+            var entitiesFinder = new DealersFinderByCompanyName((string)entityArguments[0]);
             return await entitiesFinder.find();
         }
 

@@ -34,5 +34,16 @@ namespace BookSheetMigration
         {
             transaction.buyers = entity;
         }
+
+        protected override bool insertingBuyersCollection()
+        {
+            return true;
+        }
+
+        protected override bool hasAtLeastOneContact(List<DealerDTO> possibleCollectionOfEntities)
+        {
+            var contactFinder = new DealerContactsFinder(possibleCollectionOfEntities[0].dealerId);
+            return contactFinder.find().Result.Count > 0;
+        }
     }
 }

@@ -28,8 +28,18 @@ namespace BookSheetMigration
             if (foundAtLeastOneEntityIn(possibleEntities))
             {
                 if (foundMorethanOneEntityIn(possibleEntities))
-                    if(ableToSetPossibleEntityByName(possibleEntities))
+                {
+                    if (ableToSetPossibleEntityByName(possibleEntities))
                         return true;
+                }
+                else
+                {
+                    if (insertingBuyerDealerId())
+                    {
+                        if (!hasAtLeastOneContact(possibleEntities))
+                            return false;
+                    }
+                }
                 setIdFromFirstFoundEntity(possibleEntities[0]);
                 return true;
             }
@@ -65,6 +75,10 @@ namespace BookSheetMigration
             name = name.ToLower().Trim();
             return name;
         }
+
+        protected abstract bool insertingBuyerDealerId();
+
+        protected abstract bool hasAtLeastOneContact(List<T> possibleEntities);
 
         protected abstract Task<List<T>> findEntities(params object[] entityArguments);
 

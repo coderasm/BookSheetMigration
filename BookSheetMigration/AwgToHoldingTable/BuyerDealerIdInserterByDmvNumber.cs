@@ -35,6 +35,17 @@ namespace BookSheetMigration
             return dealer.companyName;
         }
 
+        protected override bool insertingBuyerDealerId()
+        {
+            return true;
+        }
+
+        protected override bool hasAtLeastOneContact(List<DealerDTO> possibleEntities)
+        {
+            var contactFinder = new DealerContactsFinder(possibleEntities[0].dealerId);
+            return contactFinder.find().Result.Count > 0;
+        }
+
         protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
             var entitiesFinder = new DealersFinderByDmvNumber((string)entityArguments[0]);

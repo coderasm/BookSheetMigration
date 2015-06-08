@@ -83,6 +83,9 @@ namespace BookSheetMigration
             buyerDealerIdInserter = new BuyerDealerIdInserterByAddressAndCity(t);
             if (insertedDealerUsingAddressAndCity(buyerDealerIdInserter))
                 return;
+            buyerDealerIdInserter = new BuyerDealerIdInserterByCompanyName(t);
+            if (insertedDealerUsingCompanyName(buyerDealerIdInserter))
+                return;
         }
 
         private bool insertedDealerUsingDmvNumber(IdInserter<DealerDTO> dealerIdInserter)
@@ -96,6 +99,11 @@ namespace BookSheetMigration
         }
 
         private bool insertedDealerUsingAddressAndCity(IdInserter<DealerDTO> dealerIdInserter)
+        {
+            return dealerIdInserter.insertIdIfFound();
+        }
+
+        private bool insertedDealerUsingCompanyName(IdInserter<DealerDTO> dealerIdInserter)
         {
             return dealerIdInserter.insertIdIfFound();
         }

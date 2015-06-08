@@ -34,5 +34,15 @@ namespace BookSheetMigration.HoldingTableToWebInterface
         {
             transaction.sellers = entity;
         }
+
+        protected override bool insertingBuyersCollection()
+        {
+            return false;
+        }
+
+        protected override bool hasAtLeastOneContact(List<DealerDTO> possibleCollectionOfEntities)
+        {
+            return false;
+        }
     }
 }

@@ -1,32 +1,32 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BookSheetMigration.AwgToHoldingTable;
 
 namespace BookSheetMigration.HoldingTableToWebInterface
 {
-    public class BuyerDealersInserterByAddressAndCity : CollectionInserter<DealerDTO>
+    public class BuyerDealersInserterByCompanyName : CollectionInserter<DealerDTO>
     {
-        public BuyerDealersInserterByAddressAndCity(AWGTransactionDTO transaction)
+        public BuyerDealersInserterByCompanyName(AWGTransactionDTO transaction)
         {
             this.transaction = transaction;
         }
 
         protected override bool entityArgumentsExist()
         {
-            return !string.IsNullOrEmpty(transaction.buyerAddress) && !string.IsNullOrEmpty(transaction.buyerCity);
+            return !string.IsNullOrEmpty(transaction.buyerCompanyName);
         }
 
         protected override object[] getEntityArguments()
         {
             return new object[]
             {
-                transaction.buyerAddress,
-                transaction.buyerCity
+                transaction.buyerCompanyName
             };
         }
 
         protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
-            var entitiesFinder = new DealersFinderByAddressAndCity((string)entityArguments[0], (string)entityArguments[1]);
+            var entitiesFinder = new DealersFinderByPhoneNumber((string)entityArguments[0]);
             return await entitiesFinder.find();
         }
 

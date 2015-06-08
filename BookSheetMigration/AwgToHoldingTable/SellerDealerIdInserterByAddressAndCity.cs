@@ -34,6 +34,16 @@ namespace BookSheetMigration.AwgToHoldingTable
             return dealer.companyName;
         }
 
+        protected override bool insertingBuyerDealerId()
+        {
+            return false;
+        }
+
+        protected override bool hasAtLeastOneContact(List<DealerDTO> possibleEntities)
+        {
+            return false;
+        }
+
         protected override async Task<List<DealerDTO>> findEntities(params object[] entityArguments)
         {
             var entitiesFinder = new DealersFinderByAddressAndCity((string)entityArguments[0], (string)entityArguments[1]);
