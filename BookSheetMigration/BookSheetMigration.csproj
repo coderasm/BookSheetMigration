@@ -30,7 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncPoco">
+    <Reference Include="AsyncPoco, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AsyncPoco.1.1.2\lib\net45\AsyncPoco.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -62,6 +63,7 @@
     <Compile Include="AwgToHoldingTable\BuyerDealerIdInserterByPhoneNumber.cs" />
     <Compile Include="AwgToHoldingTable\BuyerDealerIdInserterByCompanyName.cs" />
     <Compile Include="AwgToHoldingTable\SellerDealerIdInserterByAddressAndCity.cs" />
+    <Compile Include="AwgToHoldingTable\SellerDealerIdInserterByCompanyName.cs" />
     <Compile Include="DealersFinderByAddressAndCity.cs" />
     <Compile Include="DealersFinderByCompanyName.cs" />
     <Compile Include="DealersFinderByDmvNumber.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="AwgToHoldingTable\ListInventoryOperation.cs" />
     <Compile Include="AwgToHoldingTable\ListTransactionOperation.cs" />
     <Compile Include="HoldingTableToWebInterface\SellerDealersInserterByAddressAndCity.cs" />
+    <Compile Include="HoldingTableToWebInterface\SellerDealersInserterByCompanyName.cs" />
     <Compile Include="HoldingTableToWebInterface\SellerDealersInserterByPhoneNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HoldingTableToWebInterface\SellerDealersInserterByDmvNumber.cs" />

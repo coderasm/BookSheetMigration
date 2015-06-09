@@ -70,6 +70,9 @@ namespace BookSheetMigration
             sellerDealerIdInserter = new SellerDealerIdInserterByAddressAndCity(t);
             if (insertedDealerUsingAddressAndCity(sellerDealerIdInserter))
                 return;
+            sellerDealerIdInserter = new SellerDealerIdInserterByCompanyName(t);
+            if (insertedDealerUsingCompanyName(sellerDealerIdInserter))
+                return;
         }
 
         private void setBuyerId(AWGTransactionDTO t)
