@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using AsyncPoco;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BookSheetMigration.Test

@@ -23,9 +23,21 @@ namespace BookSheetMigration
         [Column("TransactionId")]
         public int transactionId { get; set; }
 
-        [XmlElement("Amount")]
         [Column("BidAmount")]
-        public decimal bidAmount { get; set; }
+        public int bidAmount {
+            get
+            {
+                return Convert.ToInt32(bidAmountFromXml);
+            }
+            set
+            {
+                bidAmountFromXml = value;
+            }
+        }
+
+        [XmlElement("Amount")]
+        [Ignore]
+        public decimal bidAmountFromXml { get; set; }
 
         [Column("SoldDate")]
         public DateTime soldDate { get; set; }
@@ -166,9 +178,21 @@ namespace BookSheetMigration
         [Column("Model")]
         public string model { get; set; }
 
-        [XmlElement("OtherCharges")]
         [Column("TransportFee")]
-        public decimal transportFee { get; set; }
+        public int transportFee {
+            get
+            {
+                return Convert.ToInt32(transportFeeFromXml);
+            }
+            set
+            {
+                transportFeeFromXml = value;
+            }
+        }
+
+        [XmlElement("OtherCharges")]
+        [Ignore]
+        public decimal transportFeeFromXml { get; set; }
 
         public override bool Equals(object obj)
         {

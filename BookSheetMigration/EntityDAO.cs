@@ -35,6 +35,13 @@ namespace BookSheetMigration
             return 0;
         }
 
+        public async Task<int> update(T entity, IEnumerable<string> columns)
+        {
+            if (await exists(entity))
+                return await databaseConnection.UpdateAsync(entity, columns);
+            return 0;
+        }
+
         public async Task<object> insert(T entity)
         {
             if(!await exists(entity))
